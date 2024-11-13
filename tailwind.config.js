@@ -1,0 +1,74 @@
+/** @type {import('tailwindcss').Config} */
+module.exports = {
+  content: [
+    "./index.html",
+    "./src/**/*.{js,jsx,ts,tsx}",
+  ],
+  theme: {
+    extend: {
+      keyframes: {
+        fadeIn: {
+          '0%': { opacity: '0' },
+          '100%': { opacity: '1' },
+        },
+        fadeOut: {
+          '0%': { opacity: '1' },
+          '100%': { opacity: '0' },
+        },
+        bounce: {
+          '0%, 100%': { transform: 'translateY(0) ' },
+          '50%': { transform: 'translateY(-20px)  ' },
+        },
+        skew:{
+          '0%':{transform : "skew(5deg,5deg)"},
+          '50%':{transform : "skew(-5deg,-5deg)"},
+          '100%':{transform : 'skew(5deg,5deg)'}
+        },
+        rotateHorizontal:{
+          '0%':{transform : "rotateY(0deg)"},
+          '100%':{transform : "rotateY(360deg)"}
+        },
+        rotateCW:{
+          '0%':{transform : "rotateX(0deg)" },
+          '100%':{transform : "rotateX(90deg)"}
+        },
+        rotateCCW:{
+          '0%':{transform : "rotateX(-90deg)" },
+          '100%':{transform : "rotateX(0deg)"}
+        },
+        rotateDeg:{
+          '0%':{transform : "rotate(45deg)"},
+          '100%':{transform : "rotate(0deg)"}
+        }
+        ,
+        slideDown:{
+          '0%':{transform : "translateY(0)"},
+          '100%':{transform : "translateY(50%)"}
+        },
+        slideUpDown:{
+          '0%':{transform : "translateY(0)" , color:"red"},
+          '50%':{transform : "translateY(100px)" , color:"white"},
+          '100%':{transform : "translateY(0)" , color:"red"}
+        },
+        slideUpToCurrent:{
+          '0%':{transform : "translateY(100%)"},
+          '100%':{transform : "translateY(0)"}
+        }
+      },
+      animation: {
+        fadeIn: 'fadeIn 1.5s ease-in-out',
+        bounce: 'bounce 5s ease-in-out infinite',
+        skew:'skew 7s ease-in-out infinite',
+        rotateHorizontal:"rotateHorizontal 20s ease-in-out infinite",
+        rotateCW:"rotateCW 3s ease-in forwards",
+        fadeOut:"fadeOut 2s ease-in forwards",
+        rotateDeg:"rotateDeg 3s ease-in forwards",
+        slideDown:"slideDown 3s ease-in forwards",
+        slideUpDown:"slideUpDown 10s ease-in-out infinite",
+        slideUpToCurrent:"slideUpToCurrent 2s ease-in-out forwards",
+        rotateCCW:"rotateCCW 3s ease-in forwards"
+      },
+    },
+  },
+  plugins: [],
+}
