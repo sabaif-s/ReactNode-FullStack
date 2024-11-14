@@ -7,11 +7,13 @@ import birthdayCard from '../../assets/images/rb_26773.png';
 import nextGif from '../../assets/images/next-1989_256.gif';
 import pause from '../../assets/images/Pause.png';
 import play from '../../assets/images/Play.png';
-import firstMusic from '../../assets/audio/firsMusic.m4a';
-import secondMusic from '../../assets/audio/secondMusic.m4a';
-import thirdMusic from '../../assets/audio/thirdMusic.mp3';
-
+import firstMusic from '../../assets/audio/englishMusic.m4a';
+import secondMusic from '../../assets/audio/henok abebe.m4a';
+import thirdMusic from '../../assets/audio/oromicMusic.m4a';
+import fourthMusic from '../../assets/audio/samiBerhane.m4a';
+import FetchData from '../../hooks/fetchData';
 import {AnimateInIntroBack,AnimateOutIntro,HideIntroBack,AnimateBallon,AnimateCenterImage,AnimateInBallon,AnimateInCentreImage} from '../../redux/intro/introAction'
+import Alert from './alert';
 const  Intro = () => {
     const {AssetImage}=AssetImages();
     const [imageRendered,setImageRendered]=useState(false);
@@ -41,7 +43,15 @@ const  Intro = () => {
     const firstMusicRef=useRef(null);
     const secondMusicRef=useRef(null);
     const thirdMusicRef=useRef(null);
+    const fourthMusicRef=useRef(null);
     const [showCreateButton,setShowCreateButton]=useState(false);
+    const [showAlert,setShowAlert]=useState(false);
+    const [alertMessage,setAlertMessage]=useState("");
+    const [sendData,setSendData]=useState(false);
+    const [clickedCreate,setClickedCreate]=useState(0);
+    const [sendDataFormData,setSendDataFormData]=useState({});
+    const [fileImage,setFileImage]=useState(null);
+    FetchData(sendData,sendDataFormData,clickedCreate);
 
     const fileRef=useRef(null);
 
@@ -55,6 +65,13 @@ const  Intro = () => {
     useEffect(()=>{
         console.log(memoizedIntroData);
     },[memoizedIntroData]);
+    useEffect(()=>{
+      if(showAlert){
+        setTimeout(()=>{
+                 setShowAlert(false);
+        },3500);
+      }
+    },[showAlert]);
     useEffect(()=>{
        setTimeout(()=>{
            dispatch(AnimateInIntroBack());
@@ -197,11 +214,36 @@ setTimeout(()=>{
     const file = event.target.files[0];
     if (file && file.type.startsWith("image/")) { // Ensure it's an image
       const imageUrl = URL.createObjectURL(file);
-      setPreview(imageUrl); // Set image URL as preview
+      setPreview(imageUrl); 
+       setFileImage(file);
+      // Set image URL as preview
     } else {
-      alert("Please select a valid image file.");
+      setAlertMessage("Please select a valid image file.");
+      setShowAlert(true);
     }
   };
+  const createFormData=()=>{
+  const uniqueID=createUniqueId(inputValue);
+    const formData= new FormData();
+    formData.append("description",descriptionValue);
+    formData.append("selectedMusic",selectedMusic);
+    formData.append("name",inputValue);
+    formData.append("image",fileImage);
+    formData.append("uniqueId",uniqueID);
+        // const sentData={
+        //   description:descriptionValue,
+        //   selectedMusic:selectedMusic,
+        //   name:inputValue
+        // }
+         setSendData(true)
+         console.log("form data : ",formData);
+         setSendDataFormData(formData);
+         setClickedCreate(prev => prev + 1);
+  };
+  const createUniqueId=(name)=>{
+      const date=Date.now();
+      return name + date;
+  }
     return (
        <>
        <div className={` ${memoizedIntroData.hiddenIntroBack ? "":""}   w-full h-screen  relative`}>
@@ -302,13 +344,14 @@ setTimeout(()=>{
                                          <img 
                                          onClick={()=>{
                                             if(descriptionValue == ""){
-                                                alert("description should be written");
+                                                setShowAlert(true);
+                                                setAlertMessage("You Should Write a message!");
                                             }
                                             else{
                                                  setFadeOutDescriptionSection(true);
                                             }
                                          }}
-                                         src={nextGif} className={` ${descriptionValue == "" ? "opacity-0":"animate-fadeIn"} w-40 h-20 object-cove`} alt="" />
+                                         src={nextGif} className={` ${false ? "opacity-0":"animate-fadeIn"} w-40 h-20 object-cove`} alt="" />
                                   </div>
 
                                 </div>
@@ -406,8 +449,47 @@ setTimeout(()=>{
                                                     } className='w-full h-full' alt="" />
                                           </div>
                                       </div>
-                                      <div className={`w-full h-40 flex justify-center items-center ${showCreateButton ? "animate-fadeIn" : "opacity-0"}`}>
-  <button className="p-4 bg-gray-800 hover:bg-gray-600 transition duration-300 rounded-lg shadow-lg">
+                                      <div 
+                                      onClick={()=>{
+                                        if(selectedMusic == 4){
+                                            fourthMusicRef.current.pause();
+                                            setSelectedMusic(0);
+                                        }
+                                        else{
+                                            fourthMusicRef.current.play();
+                                            setSelectedMusic(4);
+                                        }
+                                        
+                                        
+                                        console.log("first clicked");
+                                      }}
+                                      className={` ${selectedMusic == 4 ? "animate-bounce":""} cursor-pointer w-full h-20  flex justify-around items-center`}>
+                                          <div className='w-20 h-20 rounded-full'>
+                                            <img src={uploadImage} className='w-full h-full rounded-full' alt="" />
+                                          </div>
+                                          <div className='' >
+                                             <span className='text-green-300 '>SAMI BERHANE</span>
+                                          </div>
+                                          <div className='w-20 h-20 '>
+                                            
+                                                  <img src={
+                                                    selectedMusic == 4 ? pause:play
+                                                    
+                                                    } className='w-full h-full' alt="" />
+                                          </div>
+                                      </div>
+                                      <div className={`w-full h-40 flex justify-center items-center ${true ? "animate-fadeIn" : "opacity-0"}`}>
+  <button 
+  onClick={()=>{
+    if(selectedMusic == 0){
+        setAlertMessage("You Should Select The Music");
+        setShowAlert(true);
+    }
+    else{
+      createFormData();
+    }
+  }}
+  className="p-4 bg-gray-800 hover:bg-gray-600 transition duration-300 rounded-lg shadow-lg">
     <span className="text-white text-2xl font-semibold">CREATE</span>
   </button>
 </div>
@@ -445,27 +527,62 @@ setTimeout(()=>{
                 thirdMusicRef.current.pause();
             }
          }}
+         onEnded={()=>{
+            firstMusicRef.current.currentTime=0;
+            firstMusicRef.current.play();
+         }}
         src={firstMusic} ></audio>
         <audio
           onPlay={()=>{
-            if(firstMusicRef.current && thirdMusicRef.current){
+            if(firstMusicRef.current && thirdMusicRef.current && fourthMusicRef.current){
                 firstMusicRef.current.pause();
                 thirdMusicRef.current.pause();
+                fourthMusicRef.current.pause();
             }
+            
+         }}
+         onEnded={()=>{
+            secondMusicRef.current.currentTime=0;
+            secondMusicRef.current.play();
          }}
         ref={secondMusicRef}
         src={secondMusic}></audio>
         <audio
           onPlay={()=>{
-            if(secondMusicRef.current && firstMusicRef.current){
+            if(secondMusicRef.current && firstMusicRef.current && fourthMusicRef.current){
                 secondMusicRef.current.pause();
                 firstMusicRef.current.pause();
+                fourthMusicRef.current.pause();
             }
+         }}
+         onEnded={()=>{
+            thirdMusicRef.current.currentTime=0;
+            thirdMusicRef.current.play();
          }}
         ref={thirdMusicRef}
         src={thirdMusic}></audio>
-     
+        <audio
+         onPlay={()=>{
+            if(secondMusicRef.current && firstMusicRef.current && thirdMusicRef){
+                secondMusicRef.current.pause();
+                firstMusicRef.current.pause();
+                thirdMusicRef.current.pause();
+            }
+         }}
+         onEnded={()=>{
+            fourthMusicRef.current.currentTime=0;
+            fourthMusicRef.current.play();
+         }}
+         ref={fourthMusicRef}
+        src={fourthMusic}></audio>
+        {
+            showAlert && (
+                <Alert message={alertMessage} />
+            )
+        }
+        
        </div>
+
        </>
     );
 };
