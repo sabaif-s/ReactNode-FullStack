@@ -18,6 +18,7 @@ const  FetchData = (sendData,data,clickedCreate) => {
                       },
                 } ); // Directly send the data
                 console.log(sentData.data); 
+                setSuccess(true);
                 
                 // Access the response data
               } catch (err) {
@@ -31,9 +32,7 @@ const  FetchData = (sendData,data,clickedCreate) => {
    
   
     },[sendData,clickedCreate]);
-    return (
-        <div>Content</div>
-    );
+    return {success}
 };
 
 export default  FetchData;

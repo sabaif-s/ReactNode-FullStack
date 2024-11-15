@@ -58,6 +58,10 @@ module.exports = {
         slideUpToCurrent:{
           '0%':{transform : "translateY(100%)"},
           '100%':{transform : "translateY(0)"}
+        },
+        slideUpToCurrentSlow:{
+          '0%':{transform : "translateY(100%)"},
+          '100%':{transform : "translateY(0)"}
         }
       },
       animation: {
@@ -71,6 +75,7 @@ module.exports = {
         slideDown:"slideDown 3s ease-in forwards",
         slideUpDown:"slideUpDown 10s ease-in-out infinite",
         slideUpToCurrent:"slideUpToCurrent 2s ease-in-out forwards",
+        slideUpToCurrentSlow:"slideUpToCurrentSlow 20s ease-in-out forwards",
         rotateCCW:"rotateCCW 3s ease-in forwards",
         shake:"shake 0.4s ease-in infinite"
       },

@@ -21,6 +21,7 @@ const  CardHome = ({userData}) => {
     const [animateInGift,setAnimateInGift]=useState(false);
     const [animateRotateGift,setAnimateRotateGift]=useState(false);
     const [animateRotateClick,setAnimateRotateClick]=useState(false);
+
     const audioRef=useRef(null);
     const [audioMusic,setAudioMusic]=useState(null);
     const audios=[firstMusic,secondMusic,thirdMusic,fourthMusic];
@@ -94,25 +95,34 @@ const  CardHome = ({userData}) => {
          <>
              <div className='w-full h-screen relative animate-fadeIn' >
                 <img src={profileBack4} className={` ${animateInBack ? "animate-fadeIn":"hidden"} w-full h-full absolute z-10`} alt="" />
-                 <div className='inset-y-24 inset-x-10  absolute z-20 flex flex-col justify-start pt-10 items-center ' >
+                 <div className={`inset-y-24 inset-x-10  absolute z-20 flex flex-col justify-start pt-10 items-center  `} >
                             <div className='w-full h-60 relative flex justify-center items-center' >
-                              <img src={profileBack} className={` ${animateInProfileBack ? "animate-fadeIn":'hidden'} w-full h-full absolute z-10`} alt="" />
-                              <img src={sabk} className={`w-20 h-20 z-20 absolute top-16 rounded-full ${animateInProfileImage ? "animate-fadeIn":"hidden"} `} alt="" />
+                              <img src={profileBack} className={` ${animateOutBack ? "animate-fadeOut":""} ${animateInProfileBack ? "animate-fadeIn":'hidden'} w-full h-full absolute z-10`} alt="" />
+                              <img src={sabk} className={` ${animateOutBack ? "animate-fadeOut":""} w-20 h-20 z-20 absolute top-16 rounded-full ${animateInProfileImage ? "animate-fadeIn":"hidden"} `} alt="" />
                             </div>
-                            <div className='w-full absolute h-10 z-10  top-0 flex justify-center items-center' >
+                            <div className={`w-full absolute h-10 z-10  top-0 flex justify-center items-center ${animateOutBack ? "animate-fadeOut":""} `} >
                                       <img src={welcome} className='w-full h-full' alt="" />
                             </div>
                             <div
                             onClick={()=>{
                                 audioRef.current.play();
                             }}
-                            className={` ${animateRotateGift ? "animate-fadeIn":""} w-full h-80  flex justify-center items-center relative cursor-pointer`} >
+                            className={` ${animateOutBack ? "animate-fadeOut":""} ${animateRotateGift ? "animate-fadeIn":""} w-full h-80  flex justify-center items-center relative cursor-pointer`} >
                                 <img src={gift} className={` ${animateInGift ? "animate-fadeIn":""} ${animateRotateGift ? "animate-rotateCW":"hidden"} w-60 h-60 rounded-full`} alt="" />
                                 <img src={click} className={`w-full h-20 absolute z-10 ${animateRotateClick ? "animate-rotateCCW":"hidden"} `} alt="" />
                             </div>
+                            <div className={`inset-0 absolute z-20 flex justify-center items-start ${animateOutBack ? "":"hidden"} `} >
+                            <span className={` ${animateOutBack ? "animate-slideUpToCurrentSlow":""} word-break h-full  text-blue-600 font-bold p-6 text-xl`}>
+      HELLOO SEBAIF MUHAMMED UMER ADEM SHEKA HARBEE
+    </span>
+                            </div>
                  </div>
              </div>
-                   <audio src={audioMusic} ref={audioRef} ></audio>
+                   <audio
+                   onPlay={()=>{
+                    setAnimateOutBack(true);
+                   }}
+                   src={audioMusic} ref={audioRef} ></audio>
 
          {/* {
             images.map((item,index)=>{

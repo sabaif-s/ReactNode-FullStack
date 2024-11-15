@@ -12,6 +12,7 @@ import secondMusic from '../../assets/audio/henok abebe.m4a';
 import thirdMusic from '../../assets/audio/oromicMusic.m4a';
 import fourthMusic from '../../assets/audio/samiBerhane.m4a';
 import FetchData from '../../hooks/fetchData';
+import CreatedCard from './createdCard';
 import {AnimateInIntroBack,AnimateOutIntro,HideIntroBack,AnimateBallon,AnimateCenterImage,AnimateInBallon,AnimateInCentreImage} from '../../redux/intro/introAction'
 import Alert from './alert';
 const  Intro = () => {
@@ -51,7 +52,10 @@ const  Intro = () => {
     const [clickedCreate,setClickedCreate]=useState(0);
     const [sendDataFormData,setSendDataFormData]=useState({});
     const [fileImage,setFileImage]=useState(null);
-    FetchData(sendData,sendDataFormData,clickedCreate);
+    const [showWaiting,setShowWaiting]=useState(false);
+    const [showGeneratedCard,setShowGeneratedCard]=useState(false);
+    const [fadeOutIntro,setFadeOutIntro]=useState(false);
+     const {success}=FetchData(sendData,sendDataFormData,clickedCreate);
 
     const fileRef=useRef(null);
 
@@ -59,7 +63,7 @@ const  Intro = () => {
 
     // If you want to memoize the selected data based on `introData`:
     const memoizedIntroData = useMemo(() => introDataW, [introDataW]);
-    
+    const audioRefCollection=["",firstMusicRef,secondMusicRef,thirdMusicRef,fourthMusicRef];
     const dispatch=useDispatch();
 
     useEffect(()=>{
@@ -72,6 +76,27 @@ const  Intro = () => {
         },3500);
       }
     },[showAlert]);
+    useEffect(()=>{
+         if(success){
+          setTimeout(()=>{
+            setShowWaiting(true);
+          },1500);
+          
+          setFadeOutIntro(true);
+          
+          const pausedAudio=audioRefCollection[selectedMusic];
+          pausedAudio.current.pause();
+          console.log(pausedAudio);
+          
+         }
+    },[success]);
+    useEffect(()=>{
+            if(showWaiting){
+              setTimeout(() => {
+                 setShowGeneratedCard(true);
+              },3000);
+            }
+    },[showWaiting]);
     useEffect(()=>{
        setTimeout(()=>{
            dispatch(AnimateInIntroBack());
@@ -247,7 +272,7 @@ setTimeout(()=>{
     return (
        <>
        <div className={` ${memoizedIntroData.hiddenIntroBack ? "":""}   w-full h-screen  relative`}>
-        <img src={AssetImage[2]} className={`w-full h-full absolute object-cover z-10  ${memoizedIntroData.animate_in_intro_back ? "animate-fadeIn":""} `} alt="" />
+        <img src={AssetImage[2]} className={`w-full h-full absolute object-cover z-10 ${memoizedIntroData.animate_in_intro_back ? "animate-fadeIn":""} `} alt="" />
         {
             !memoizedIntroData.hiddenIntroBack && (
                 <div className={` ${memoizedIntroData.animate_out_intro ? "animate-fadeOut relative w-full h-full z-20 bg-black bg-opacity-50":"absolute w-full h-full z-20"}`}>
@@ -288,7 +313,7 @@ setTimeout(()=>{
                 <>
                   <div className='w-full h-full  animate-fadeIn bg-red-300 absolute z-20 flex justify-center items-center'>
                       <div className='w-full h-full relative flex justify-center items-center' >
-                        <img src={AssetImage[4]} className={`absolute w-full h-full z-30 ${descriptionShow ? "blur-md":""} `} alt="" />
+                        <img src={AssetImage[4]} className={`absolute w-full h-full z-30 ${fadeOutIntro ? "animate-fadeOut":''}   ${descriptionShow ? "blur-md":""} `} alt="" />
                         <div className={` ${fadeOutNameAndImage ? "animate-fadeOut":""} absolute h-2/3 w-64 bg-black bg-opacity-50 z-40 flex flex-col gap-y-10 justify-center items-center p-10`} >
                         <input
                 value={inputValue}
@@ -360,7 +385,7 @@ setTimeout(()=>{
                         }
                         {
                             showSelectMusic && (
-                                <div className='w-full inset-y-10 bg-black flex flex-col justify-center items-center gap-y-6 bg-opacity-50  absolute z-40'>
+                                <div className={` ${fadeOutIntro ? "animate-fadeOut":"animate-fadeIn"} w-full inset-y-10 bg-black flex flex-col justify-center items-center gap-y-6 bg-opacity-50  absolute z-40`}>
                                       <div className='w-full p-6 bg-gray-300 flex justify-center items-center' >
                                           <span className='text-white text-2xl' >SELECT MUSIC</span>
                                       </div>
@@ -495,6 +520,18 @@ setTimeout(()=>{
 </div>
                                 </div>
                             )
+                        }
+                        {
+                          showWaiting && (
+                            <div className={` ${showWaiting ? "animate-fadeIn":"animate-fadeOut"} absolute w-full h-40 bg-red-300 `} >
+                                    waiting
+                              </div>
+                          )
+                        }
+                        {
+                          showGeneratedCard && (
+                            <CreatedCard/>
+                          )
                         }
                         
                       </div>
