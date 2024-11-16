@@ -16,7 +16,7 @@ const  CreatedCard = ({userId}) => {
         <>
           {
             readyRenderCard && (
-                <CardHome userData={userData} />
+                <CardHome userData={userData} userId={userId} />
             )
           }
         </>

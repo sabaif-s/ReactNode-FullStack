@@ -12,8 +12,13 @@ import firstMusic from '../../assets/audio/englishMusic.m4a';
 import secondMusic from '../../assets/audio/henok abebe.m4a';
 import thirdMusic from '../../assets/audio/oromicMusic.m4a';
 import fourthMusic from '../../assets/audio/samiBerhane.m4a';
-const  CardHome = ({userData}) => {
+import { useParams } from 'react-router-dom';
+import ReceiveBackEndData from '../../hooks/receiveBackEndData';
+import Copy from './copy';
+const  CardHome = ({userData,userId}) => {
     const images=[profileBack,profileBack2,profileBack3,profileBack4];
+    const {userIdPar}=useParams();
+    const {userDataShow}=ReceiveBackEndData(userIdPar,userId);
     const [animateInBack,setAnimateInBack]=useState(false);
     const [animateOutBack,setAnimateOutBack]=useState(false); 
     const [animateInProfileBack,setAnimateInProfileBack]=useState(false);
@@ -26,7 +31,12 @@ const  CardHome = ({userData}) => {
     const [audioMusic,setAudioMusic]=useState(null);
     const audios=[firstMusic,secondMusic,thirdMusic,fourthMusic];
     const [imageUrl,setImageUrl]=useState("");
-    const backendUrl="http://localhost:3000/image/"
+    const ApiUrl=import.meta.env.VITE_API_URL;
+    const backendUrl=`${ApiUrl}/image/`;
+    const [showCopy,setShowCopy]=useState(false);
+    const [description,setDescription]=useState("");
+    const [animateOutCard,setAnimateOutCard]=useState(false);
+    const [usersId,setUsersId]=useState("");
     useEffect(()=>{
        setTimeout(()=>{
                setAnimateInBack(true);
@@ -34,14 +44,34 @@ const  CardHome = ({userData}) => {
     },[]);
     useEffect(()=>{
         if(userData.length > 0){
-            const selectedMusic=userData[0].data[0].selectedMusic;
+            const selectedMusic=userData[0][0].selectedMusic;
             setAudioMusic(audios[selectedMusic - 1]);
-            const profile=`${backendUrl}${userData[0].data[0].profileImage}`;
+            const profile=`${backendUrl}${userData[0][0].profileImage}`;
             console.log(profile);
             setImageUrl(profile);
+            setDescription(userData[0][0].description);
         }
          
     },[userData]);
+    useEffect(()=>{
+           if(userId != ""){
+            setUsersId(userId);
+           }
+           else if (userIdPar != ""){
+            setUsersId(userIdPar);
+           }
+    },[userIdPar,userId]);
+    useEffect(()=>{
+        if(userDataShow.length > 0){
+            const selectedMusic=userDataShow[0][0].selectedMusic;
+            setAudioMusic(audios[selectedMusic - 1]);
+            const profile=`${backendUrl}${userDataShow[0][0].profileImage}`;
+            console.log(profile);
+            setImageUrl(profile);
+            setDescription(userDataShow[0][0].description);
+        }
+         
+    },[userDataShow]);
     useEffect(()=>{
         if(animateInBack){
             setTimeout(()=>{
@@ -49,6 +79,20 @@ const  CardHome = ({userData}) => {
             },2000)
         }
     },[animateInBack]);
+    useEffect(()=>{
+        if(showCopy){
+            setTimeout(()=>{
+                setShowCopy(false);
+                setAnimateOutCard(false);
+                setTimeout(()=>{
+                       setAnimateOutCard(true);
+                       setTimeout(()=>{
+                            setShowCopy(true);
+                       },1500);
+                },20000);
+               },5000);
+        }
+    },[showCopy]);
     useEffect(()=>{
      if(animateInProfileBack){
         setTimeout(()=>{
@@ -97,7 +141,7 @@ const  CardHome = ({userData}) => {
 
     return (
          <>
-             <div className='w-full h-screen relative animate-fadeIn' >
+             <div className={` ${showCopy ? "hidden":""} ${animateOutCard ? "animate-fadeOut":"animate-fadeIn"} w-full h-screen relative `} >
                 <img src={profileBack4} className={` ${animateInBack ? "animate-fadeIn":"hidden"} w-full h-full absolute z-10`} alt="" />
                  <div className={` inset-y-24 inset-x-10  absolute z-50 flex flex-col justify-start pt-10 items-center  `} >
                             <div className='w-full h-60 relative flex justify-center items-center' >
@@ -120,15 +164,31 @@ const  CardHome = ({userData}) => {
                             </div>
                             <div className={`inset-0 absolute z-20 flex justify-center items-start ${animateOutBack ? "":"hidden"} `} >
                             <span className={` ${animateOutBack ? "animate-slideUpToCurrentSlow":""} word-break h-full  text-blue-600 font-bold p-6 text-xl`}>
-      HELLOO SEBAIF MUHAMMED UMER ADEM SHEKA HARBEE
+                                   {description}
     </span>
                             </div>
                  </div>
              </div>
+             {
+                showCopy && (
+                    <Copy userId={usersId} userIdPar={userIdPar} />
+                )
+             }
                    <audio
                    onPlay={()=>{
                     setAnimateOutBack(true);
+                    setTimeout(()=>{
+                      setAnimateOutCard(true);
+                      setTimeout(()=>{
+                      setShowCopy(true);
+                     
+                      },2500);
+                    },20000);
                     
+                   }}
+                   onEnded={()=>{
+                    audioRef.current.currentTime=0;
+                    audioRef.current.play();
                    }}
                    src={audioMusic} ref={audioRef} ></audio>
 
