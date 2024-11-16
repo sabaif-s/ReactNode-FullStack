@@ -29,6 +29,11 @@ module.exports = {
           '50%':{transform : "skew(-5deg,-5deg)"},
           '100%':{transform : 'skew(5deg,5deg)'}
         },
+        skewFast:{
+          '0%':{transform : "skew(5deg,5deg)"},
+          '50%':{transform : "skew(-5deg,-5deg)"},
+          '100%':{transform : 'skew(5deg,5deg)'}
+        },
         rotateHorizontal:{
           '0%':{transform : "rotateY(0deg)"},
           '100%':{transform : "rotateY(360deg)"}
@@ -68,6 +73,7 @@ module.exports = {
         fadeIn: 'fadeIn 1.5s ease-in-out',
         bounce: 'bounce 5s ease-in-out infinite',
         skew:'skew 7s ease-in-out infinite',
+        skewFast:'skewFast 2s ease-in-out infinite',
         rotateHorizontal:"rotateHorizontal 20s ease-in-out infinite",
         rotateCW:"rotateCW 3s ease-in forwards",
         fadeOut:"fadeOut 2s ease-in forwards",

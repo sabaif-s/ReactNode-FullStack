@@ -25,6 +25,8 @@ const  CardHome = ({userData}) => {
     const audioRef=useRef(null);
     const [audioMusic,setAudioMusic]=useState(null);
     const audios=[firstMusic,secondMusic,thirdMusic,fourthMusic];
+    const [imageUrl,setImageUrl]=useState("");
+    const backendUrl="http://localhost:3000/image/"
     useEffect(()=>{
        setTimeout(()=>{
                setAnimateInBack(true);
@@ -34,6 +36,9 @@ const  CardHome = ({userData}) => {
         if(userData.length > 0){
             const selectedMusic=userData[0].data[0].selectedMusic;
             setAudioMusic(audios[selectedMusic - 1]);
+            const profile=`${backendUrl}${userData[0].data[0].profileImage}`;
+            console.log(profile);
+            setImageUrl(profile);
         }
          
     },[userData]);
@@ -86,8 +91,7 @@ const  CardHome = ({userData}) => {
                 
                 
         },10000);
-        }
-           
+        } 
      },[animateRotateClick])
 
 
@@ -95,17 +99,20 @@ const  CardHome = ({userData}) => {
          <>
              <div className='w-full h-screen relative animate-fadeIn' >
                 <img src={profileBack4} className={` ${animateInBack ? "animate-fadeIn":"hidden"} w-full h-full absolute z-10`} alt="" />
-                 <div className={`inset-y-24 inset-x-10  absolute z-20 flex flex-col justify-start pt-10 items-center  `} >
+                 <div className={` inset-y-24 inset-x-10  absolute z-50 flex flex-col justify-start pt-10 items-center  `} >
                             <div className='w-full h-60 relative flex justify-center items-center' >
                               <img src={profileBack} className={` ${animateOutBack ? "animate-fadeOut":""} ${animateInProfileBack ? "animate-fadeIn":'hidden'} w-full h-full absolute z-10`} alt="" />
-                              <img src={sabk} className={` ${animateOutBack ? "animate-fadeOut":""} w-20 h-20 z-20 absolute top-16 rounded-full ${animateInProfileImage ? "animate-fadeIn":"hidden"} `} alt="" />
+                              <img src={imageUrl} className={` ${animateOutBack ? "animate-fadeOut":""} w-20 h-20 z-20 absolute top-16 rounded-full ${animateInProfileImage ? "animate-fadeIn":"hidden"} `} alt="" />
                             </div>
                             <div className={`w-full absolute h-10 z-10  top-0 flex justify-center items-center ${animateOutBack ? "animate-fadeOut":""} `} >
                                       <img src={welcome} className='w-full h-full' alt="" />
                             </div>
                             <div
                             onClick={()=>{
-                                audioRef.current.play();
+                                if(animateRotateGift || animateRotateClick){
+                                    audioRef.current.play();
+                                }
+                               
                             }}
                             className={` ${animateOutBack ? "animate-fadeOut":""} ${animateRotateGift ? "animate-fadeIn":""} w-full h-80  flex justify-center items-center relative cursor-pointer`} >
                                 <img src={gift} className={` ${animateInGift ? "animate-fadeIn":""} ${animateRotateGift ? "animate-rotateCW":"hidden"} w-60 h-60 rounded-full`} alt="" />
@@ -121,6 +128,7 @@ const  CardHome = ({userData}) => {
                    <audio
                    onPlay={()=>{
                     setAnimateOutBack(true);
+                    
                    }}
                    src={audioMusic} ref={audioRef} ></audio>
 

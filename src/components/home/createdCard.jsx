@@ -2,8 +2,8 @@ import React from 'react';
 import ReceiveBackEndData from '../../hooks/receiveBackEndData';
 import { useEffect,useState } from 'react';
 import CardHome from './cardHome';
-const  CreatedCard = () => {
-     const {userData}=ReceiveBackEndData("sebaif muhammed1731598695384");
+const  CreatedCard = ({userId}) => {
+     const {userData}=ReceiveBackEndData(userId);
      const [readyRenderCard,setReadyRenderCard]=useState(false);
      
      useEffect(()=>{

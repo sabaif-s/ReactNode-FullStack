@@ -13,6 +13,8 @@ import thirdMusic from '../../assets/audio/oromicMusic.m4a';
 import fourthMusic from '../../assets/audio/samiBerhane.m4a';
 import FetchData from '../../hooks/fetchData';
 import CreatedCard from './createdCard';
+import Waiting from './waiting';
+import Copy from './copy';
 import {AnimateInIntroBack,AnimateOutIntro,HideIntroBack,AnimateBallon,AnimateCenterImage,AnimateInBallon,AnimateInCentreImage} from '../../redux/intro/introAction'
 import Alert from './alert';
 const  Intro = () => {
@@ -55,6 +57,7 @@ const  Intro = () => {
     const [showWaiting,setShowWaiting]=useState(false);
     const [showGeneratedCard,setShowGeneratedCard]=useState(false);
     const [fadeOutIntro,setFadeOutIntro]=useState(false);
+    const [uniqueIDNew,setUniqueID]=useState("");
      const {success}=FetchData(sendData,sendDataFormData,clickedCreate);
 
     const fileRef=useRef(null);
@@ -90,13 +93,13 @@ const  Intro = () => {
           
          }
     },[success]);
-    useEffect(()=>{
-            if(showWaiting){
-              setTimeout(() => {
-                 setShowGeneratedCard(true);
-              },3000);
-            }
-    },[showWaiting]);
+    // useEffect(()=>{
+    //         if(showWaiting){
+    //           setTimeout(() => {
+    //              setShowGeneratedCard(true);
+    //           },3000);
+    //         }
+    // },[showWaiting]);
     useEffect(()=>{
        setTimeout(()=>{
            dispatch(AnimateInIntroBack());
@@ -249,6 +252,7 @@ setTimeout(()=>{
   };
   const createFormData=()=>{
   const uniqueID=createUniqueId(inputValue);
+  setUniqueID(uniqueID);
     const formData= new FormData();
     formData.append("description",descriptionValue);
     formData.append("selectedMusic",selectedMusic);
@@ -385,7 +389,7 @@ setTimeout(()=>{
                         }
                         {
                             showSelectMusic && (
-                                <div className={` ${fadeOutIntro ? "animate-fadeOut":"animate-fadeIn"} w-full inset-y-10 bg-black flex flex-col justify-center items-center gap-y-6 bg-opacity-50  absolute z-40`}>
+                                <div className={` ${fadeOutIntro ? "animate-fadeOut z-10":"animate-fadeIn z-40"} w-full inset-y-10 bg-black flex flex-col justify-center items-center gap-y-6 bg-opacity-50  absolute`}>
                                       <div className='w-full p-6 bg-gray-300 flex justify-center items-center' >
                                           <span className='text-white text-2xl' >SELECT MUSIC</span>
                                       </div>
@@ -396,8 +400,11 @@ setTimeout(()=>{
                                             setSelectedMusic(0);
                                         }
                                         else{
+                                           if(!fadeOutIntro){
                                             firstMusicRef.current.play();
                                             setSelectedMusic(1);
+                                           }
+                                            
                                         }
                                         
                                         
@@ -425,8 +432,11 @@ setTimeout(()=>{
                                                  setSelectedMusic(0);
                                         }
                                         else{
+                                          if(!fadeOutIntro){
                                             secondMusicRef.current.play();
                                             setSelectedMusic(2);
+                                        }
+                                            
                                         }
                                         
                                         console.log("first clicked");
@@ -453,8 +463,11 @@ setTimeout(()=>{
                                             setSelectedMusic(0);
                                         }
                                         else{
+                                          if(!fadeOutIntro){
                                             thirdMusicRef.current.play();
                                             setSelectedMusic(3);
+                                          }
+                                            
                                         }
                                         
                                         console.log("first clicked");
@@ -523,9 +536,7 @@ setTimeout(()=>{
                         }
                         {
                           showWaiting && (
-                            <div className={` ${showWaiting ? "animate-fadeIn":"animate-fadeOut"} absolute w-full h-40 bg-red-300 `} >
-                                    waiting
-                              </div>
+                            <Waiting userId={uniqueIDNew} />
                           )
                         }
                         {
