@@ -13,7 +13,7 @@ const basename = '/ReactNode-FullStack';
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <Provider store={store} >
-    <Router>
+    <Router basename={basename}>
       <Routes>
         <Route path="/" element={<App />} />
         <Route path='/card' element={<CreatedCard/>} ></Route>
