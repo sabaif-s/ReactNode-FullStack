@@ -45,6 +45,7 @@ const  LightOnOff = () => {
                                       audioRef.current.currentTime=0;
                                       audioRef.current.play();
                                       setTimeout(()=>{
+                                        audioRef.current.volume=1;
                                          audioRef2.current.play();
                                       },1000);
                                     },1500);
@@ -60,9 +61,9 @@ const  LightOnOff = () => {
                          {/* <img src={bulbLight2} className='w-full h-40' alt="" /> */}
                     </div>
                     <div className={`w-full ${animateInBottomLight ? "animate-fadeIn":"opacity-0"} h-1/2 absolute z-10 bottom-0 z-0 flex justify-start items-center`} >
-                         <img src={bulbLight5Left} className='w-1/3 h-full animate-shakeSlow z-10' alt="" />
-                         <img src={bulbLight5Center} className='w-1/3 h-full z-10 animate-shakeSlowLeft' alt="" />
-                         <img src={bulbLight5Right} className='w-1/3 h-full animate-shakeSlow z-10' alt="" />
+                         <img src={bulbLight5Left} className='w-1/3 h-full animate-shakeSlowLeft z-10' alt="" />
+                         <img src={bulbLight5Center} className='w-1/3 h-full z-10 animate-shakeSlow' alt="" />
+                         <img src={bulbLight5Right} className='w-1/3 h-full animate-shakeSlowLeft z-10' alt="" />
                          <img src={shakeBulb} className='w-full h-full absolute z-0' alt="" />
                          {/* <img src={bulbLight4} className='w-full h-40' alt="" /> */}
                     </div>
