@@ -13,6 +13,7 @@ import thirdMusic from '../../assets/audio/oromicMusic.m4a';
 import fourthMusic from '../../assets/audio/samiBerhane.m4a';
 import FetchData from '../../hooks/fetchData';
 import CreatedCard from './createdCard';
+import ScreenSize from './screen';
 import Waiting from './waiting';
 import Copy from './copy';
 import {AnimateInIntroBack,AnimateOutIntro,HideIntroBack,AnimateBallon,AnimateCenterImage,AnimateInBallon,AnimateInCentreImage} from '../../redux/intro/introAction'
@@ -59,6 +60,7 @@ const  Intro = () => {
     const [fadeOutIntro,setFadeOutIntro]=useState(false);
     const [uniqueIDNew,setUniqueID]=useState("");
      const {success}=FetchData(sendData,sendDataFormData,clickedCreate);
+     const {isMobile,isDesktop,isTablet}=ScreenSize();
 
     const fileRef=useRef(null);
 
@@ -275,12 +277,12 @@ setTimeout(()=>{
   }
     return (
        <>
-       <div className={` ${memoizedIntroData.hiddenIntroBack ? "":""}   w-full h-screen  relative`}>
+       <div className={` ${memoizedIntroData.hiddenIntroBack ? "":""}   w-full h-screen  relative overflow-hidden`}>
         <img src={AssetImage[2]} className={`w-full h-full absolute object-cover z-10 ${memoizedIntroData.animate_in_intro_back ? "animate-fadeIn":""} `} alt="" />
         {
             !memoizedIntroData.hiddenIntroBack && (
-                <div className={` ${memoizedIntroData.animate_out_intro ? "animate-fadeOut relative w-full h-full z-20 bg-black bg-opacity-50":"absolute w-full h-full z-20"}`}>
-                       <img src={AssetImage[3]} className={` ${memoizedIntroData.hidden_center_image ? "hidden":""} ${memoizedIntroData.animate_in_centre_image ? "animate-fadeIn":""} ${memoizedIntroData.animate_center_image ? "animate-bounce":""}  w-1/2 h-1/2 absolute top-20 left-20 object-cover z-30`} alt="" />
+                <div className={` ${isMobile ? "":"flex justify-center items-center"} ${memoizedIntroData.animate_out_intro ? "animate-fadeOut relative w-full h-full z-20 bg-black bg-opacity-50":"absolute w-full h-full z-20"}`}>
+                       <img src={AssetImage[3]} className={` ${memoizedIntroData.hidden_center_image ? "hidden":""} ${memoizedIntroData.animate_in_centre_image ? "animate-fadeIn":""} ${memoizedIntroData.animate_center_image ? "animate-bounce":""} ${isMobile ? "w-1/2 h-1/2":"w-1/3 h-full object-cover rounded-full"} absolute ${isMobile ? "top-20 left-20":""} object-cover z-30`} alt="" />
         <img src={AssetImage[0]} className={` ${memoizedIntroData.hidden_two_ballon ? "hidden":""} ${memoizedIntroData.animate_in_two_ballon ? "animate-fadeIn":""}  ${memoizedIntroData.animate_two_ballon ? "animate-skew":""} w-40 h-40 absolute object-cover top-40 left-4 z-20`} alt="" />
         <img src={AssetImage[1]} className={` ${memoizedIntroData.hidden_two_ballon ? "hidden":""} ${memoizedIntroData.animate_in_two_ballon ? "animate-fadeIn":""} ${memoizedIntroData.animate_two_ballon ? "animate-skew":""} w-40 h-40 absolute object-cover top-40 right-10 z-20`} alt="" />
         <div className={` ${hideRotates ? "hidden":""} ${animateCreate ? "hidden":""} ${animateDownRotates ? "animate-slideDown":""} ${animateInRotates ? "animate-fadeIn":""} absolute w-full h-full left-0 right-0 z-40 flex justify-center items-center`} >

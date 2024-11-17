@@ -156,7 +156,7 @@ const  CardHome = ({userData,userId}) => {
                  <div className={` inset-y-24 inset-x-10  absolute z-50 flex flex-col justify-start pt-10 items-center  `} >
                             <div className='w-full h-60 relative flex justify-center items-center' >
                               <img src={profileBack} className={` ${animateOutBack ? "animate-fadeOut":""} ${animateInProfileBack ? "animate-fadeIn":'hidden'} w-full h-full absolute z-10`} alt="" />
-                              <img src={imageUrl} className={` ${animateOutBack ? "animate-fadeOut":""} w-20 h-20 z-20 absolute top-16 rounded-full ${animateInProfileImage ? "animate-fadeIn":"hidden"} `} alt="" />
+                              <img src={imageUrl} className={` ${animateOutBack ? "animate-fadeOut":""} w-28 h-28 z-20 absolute top-12 rounded-full ${animateInProfileImage ? "animate-fadeIn":"hidden"} `} alt="" />
                             </div>
                             <div className={`w-full absolute h-10 z-10  top-0 flex justify-center items-center ${animateOutBack ? "animate-fadeOut":""} `} >
                                       <img src={welcome} className='w-full h-full' alt="" />
