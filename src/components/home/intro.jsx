@@ -539,11 +539,8 @@ setTimeout(()=>{
                             <Waiting userId={uniqueIDNew} />
                           )
                         }
-                        {
-                          showGeneratedCard && (
-                            <CreatedCard/>
-                          )
-                        }
+                        
+                        
                         
                       </div>
                   </div>

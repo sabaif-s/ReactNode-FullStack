@@ -19,6 +19,7 @@ const  LightOnOff = () => {
     const [animateInBottomLight,setAnimateInBottomLight]=useState(false);
     const [animateLightBackTop,setAnimateLightBackTop]=useState(false);
     const [animateLightBackBottom,setAnimateLightBackBottom]=useState(false);
+    const [animateOutComponent,setAnimateOutComponent]=useState(false);
     const audioRef=useRef(null);
     const audioRef2=useRef(null);
     useEffect(()=>{
@@ -27,7 +28,7 @@ const  LightOnOff = () => {
           const images=[bulbLight,bulbDim,bulbLight2,bulbLight4,imageBack,flowers];
     return (
         <>
-        <div className={`w-full h-screen  relative ` } >
+        <div className={`w-full h-screen  absolute z-40 ${animateOutComponent ? "animate-fadeOut":""} ` } >
                     <img src={backImageBackGround} className={` ${animateInTopLight ? "opacity-50":"opacity-100"} absolute w-full h-full z-10`} alt="" />
                     <div className='w-full h-full absolute flex justify-center items-center' >
                     <img
@@ -47,6 +48,10 @@ const  LightOnOff = () => {
                                       setTimeout(()=>{
                                         audioRef.current.volume=1;
                                          audioRef2.current.play();
+                                         setTimeout(()=>{
+                                           audioRef2.current.pause();
+                                           setAnimateOutComponent(true);
+                                         },10000);
                                       },1000);
                                     },1500);
                                    },1500);
@@ -69,16 +74,7 @@ const  LightOnOff = () => {
                     </div>
                      
         </div>
-      {
-        images.map((item,index)=>{
-            return (
-                <div key={index
-                } >
-                <img src={item} alt="" />
-                </div>
-            )
-        })
-      }
+     
       <audio src={bulbSound}ref={audioRef} ></audio>
       <audio src={bulbShake}ref={audioRef2} ></audio>
       </>

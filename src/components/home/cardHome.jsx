@@ -14,6 +14,7 @@ import thirdMusic from '../../assets/audio/oromicMusic.m4a';
 import fourthMusic from '../../assets/audio/samiBerhane.m4a';
 import { useParams } from 'react-router-dom';
 import ReceiveBackEndData from '../../hooks/receiveBackEndData';
+import CardForShow from './cardForShow';
 import Copy from './copy';
 const  CardHome = ({userData,userId}) => {
     const images=[profileBack,profileBack2,profileBack3,profileBack4];
@@ -37,10 +38,15 @@ const  CardHome = ({userData,userId}) => {
     const [description,setDescription]=useState("");
     const [animateOutCard,setAnimateOutCard]=useState(false);
     const [usersId,setUsersId]=useState("");
+
+    const [showIntroCard,setShowIntroCard]=useState(true);
     useEffect(()=>{
-       setTimeout(()=>{
-               setAnimateInBack(true);
-       },1000);
+      
+       
+        setTimeout(()=>{
+            setAnimateInBack(true);
+    },1000);
+       
     },[]);
     useEffect(()=>{
         if(userData.length > 0){
@@ -141,7 +147,9 @@ const  CardHome = ({userData,userId}) => {
 
     return (
          <>
-             <div className={` ${showCopy ? "hidden":""} ${animateOutCard ? "animate-fadeOut":"animate-fadeIn"} w-full h-screen relative `} >
+         {
+            !showIntroCard && (
+                <div className={` ${showCopy ? "hidden":""} ${animateOutCard ? "animate-fadeOut":"animate-fadeIn"} w-full h-screen absolute `} >
                 <img src={profileBack4} className={` ${animateInBack ? "animate-fadeIn":"hidden"} w-full h-full absolute z-10`} alt="" />
                  <div className={` inset-y-24 inset-x-10  absolute z-50 flex flex-col justify-start pt-10 items-center  `} >
                             <div className='w-full h-60 relative flex justify-center items-center' >
@@ -168,7 +176,15 @@ const  CardHome = ({userData,userId}) => {
     </span>
                             </div>
                  </div>
-             </div>
+             </div> 
+            )
+         }
+         {
+            showIntroCard && (
+                <CardForShow/>
+            )
+         }
+           
              {
                 showCopy && (
                     <Copy userId={usersId} userIdPar={userIdPar} />
@@ -191,16 +207,7 @@ const  CardHome = ({userData,userId}) => {
                     audioRef.current.play();
                    }}
                    src={audioMusic} ref={audioRef} ></audio>
-
-         {/* {
-            images.map((item,index)=>{
-return (
-    <div key={index} >
-        <img src={item} alt="" />
-    </div>
-)
-            })
-         } */}
+ 
          </>
     );
 };

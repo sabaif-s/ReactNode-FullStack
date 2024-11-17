@@ -63,6 +63,7 @@ const  Waiting = ({userId}) => {
 
     },[]);
     return (
+        <>
         <div className='w-full h-screen relative flex justify-center items-center relative  overflow-y-hidden' >
                 <img src={backImage} className={` ${animateOutWaiting ? "animate-fadeOut":""} ${hideWaiting ? "hidden":" animate-fadeIn"} w-full h-full absolute z-0`} alt="" />
                  <div className={` ${animateOutWaiting? "animate-fadeOut":""} ${hideWaiting ? "hidden":""} relative flex justify-center items-center bg-black bg-opacity-50 `}>
@@ -103,12 +104,14 @@ const  Waiting = ({userId}) => {
     
     </div>
                  </div>
-           {
+         
+        </div>
+        {
             showCreatedCard && (
                 <CreatedCard userId={userId} />
             )
            }
-        </div>
+        </>
     );
 };
 

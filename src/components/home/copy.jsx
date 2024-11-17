@@ -37,7 +37,7 @@ const  Copy = ({userId,userIdPar}) => {
     },[userId,userIdPar]);
     return (
         <div
-        className='w-full h-screen relative flex justify-center items-center'
+        className='w-full h-screen absolute flex justify-center items-center'
         >
             <img src={backShare} className='w-full h-full absolute z-10 animate-fadeIn' alt="" />
             <div className={` ${copySuccess == "" ? "animate-skewFast":""} w-40 h-40 top-24 absolute z-20`} >
