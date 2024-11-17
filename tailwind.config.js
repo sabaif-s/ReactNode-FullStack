@@ -16,6 +16,11 @@ module.exports = {
          '50%':{transform :"translateX(20px)"},
          '100%':{transform :"translateX(0)"},
         },
+        shakeLeft:{
+          '0%':{transform : "translateX(0)"},
+          '50%':{transform :"translateX(-20px)"},
+          '100%':{transform :"translateX(0)"},
+         },
         fadeOut: {
           '0%': { opacity: '1' },
           '100%': { opacity: '0' },
@@ -83,7 +88,9 @@ module.exports = {
         slideUpToCurrent:"slideUpToCurrent 2s ease-in-out forwards",
         slideUpToCurrentSlow:"slideUpToCurrentSlow 20s ease-in-out forwards",
         rotateCCW:"rotateCCW 3s ease-in forwards",
-        shake:"shake 0.4s ease-in infinite"
+        shake:"shake 0.4s ease-in infinite",
+          shakeSlow:"shake 5s ease-in infinite",
+          shakeSlowLeft:"shakeLeft 5s ease-in infinite"
       },
     },
   },
