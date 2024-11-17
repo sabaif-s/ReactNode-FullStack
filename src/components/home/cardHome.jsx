@@ -31,7 +31,7 @@ const  CardHome = ({userData,userId}) => {
     const [audioMusic,setAudioMusic]=useState(null);
     const audios=[firstMusic,secondMusic,thirdMusic,fourthMusic];
     const [imageUrl,setImageUrl]=useState("");
-    const ApiUrl=import.meta.env.VITE_API_URL;
+    const ApiUrl=import.meta.env.VITE_API_LOCAL;
     const backendUrl=`${ApiUrl}/image/`;
     const [showCopy,setShowCopy]=useState(false);
     const [description,setDescription]=useState("");

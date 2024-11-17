@@ -20,6 +20,7 @@ useEffect(()=>{
              const data=await axios.get(`/api/data/getUserData/${userIdToFetch}`);
              if(data){
                 
+                
                 const parsedData=JSON.parse(data.data.data);
                 console.log(typeof(parsedData));
             
