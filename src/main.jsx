@@ -13,13 +13,13 @@ const basename = '/ReactNode-FullStack';
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <Provider store={store} >
-    <Router basename={basename}>
+    <Router basename={basename} >
       <Routes>
-        <Route path="/ReactNode-FullStack/" element={<App />} />
-        <Route path='/ReactNode-FullStack/card' element={<CreatedCard/>} ></Route>
-        <Route path='/ReactNode-FullStack/waiting' element={<Waiting/>} ></Route>
-        <Route path='/ReactNode-FullStack/copy' element={<Copy/>} ></Route>
-        <Route path='/ReactNode-FullStack/watch/:userIdPar' element={<CardHome  userId={""}userData={[]} />} ></Route>
+        <Route path="/" element={<App />} />
+        <Route path='/card' element={<CreatedCard/>} ></Route>
+        <Route path='/waiting' element={<Waiting/>} ></Route>
+        <Route path='/copy' element={<Copy/>} ></Route>
+        <Route path='/watch/:userIdPar' element={<CardHome  userId={""}userData={[]} />} ></Route>
       </Routes>
     </Router>
     </Provider>
