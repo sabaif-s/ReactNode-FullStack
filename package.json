@@ -1,9 +1,10 @@
 {
+  "homepage": "https://sabaif-s.github.io/ReactNode-FullStack",
   "name": "frontreact",
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "homepage": "https://sabaif-s.github.io/ReactNode-FullStack",
+
   "scripts": {
     "dev": "vite",
     "build": "vite build",
