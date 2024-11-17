@@ -14,7 +14,7 @@ import backImageBackGround from '../../assets/images/92990.jpg';
 import bulbSound from '../../assets/audio/light-switch-156813.mp3';
 import bulbShake from '../../assets/audio/light-bulb-shaking-30940.mp3';
 import shakeBulb from '../../assets/images/shakeBulbBack.jpg';
-const  LightOnOff = () => {
+const  LightOnOff = ({showFunction}) => {
     const [animateInTopLight,setAnimateInTopLight]=useState(false);
     const [animateInBottomLight,setAnimateInBottomLight]=useState(false);
     const [animateLightBackTop,setAnimateLightBackTop]=useState(false);
@@ -51,6 +51,7 @@ const  LightOnOff = () => {
                                          setTimeout(()=>{
                                            audioRef2.current.pause();
                                            setAnimateOutComponent(true);
+                                           showFunction();
                                          },10000);
                                       },1000);
                                     },1500);

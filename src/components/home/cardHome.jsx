@@ -1,5 +1,5 @@
 import React from 'react';
-import { useEffect,useState,useRef } from 'react';
+import { useEffect,useState,useRef,useCallback } from 'react';
 import profileBack from '../../assets/images/profileBack.jpg';
 import profileBack2 from '../../assets/images/rb_32582.png';
 import profileBack3 from '../../assets/images/13514304_SL.111019.24830.39.jpg';
@@ -144,7 +144,9 @@ const  CardHome = ({userData,userId}) => {
         } 
      },[animateRotateClick])
 
-
+        const showFunction=useCallback(()=>{
+                     setShowIntroCard(false);
+        });
     return (
          <>
          {
@@ -181,7 +183,7 @@ const  CardHome = ({userData,userId}) => {
          }
          {
             showIntroCard && (
-                <CardForShow/>
+                <CardForShow  showFunction={showFunction} />
             )
          }
            

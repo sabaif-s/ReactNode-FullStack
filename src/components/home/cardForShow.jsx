@@ -1,9 +1,9 @@
 import React from 'react';
 import LightOnOff from './lightOnOff';
-const  CardForShow = () => {
+const  CardForShow = ({showFunction}) => {
     return (
        <>
-       <LightOnOff/>
+       <LightOnOff showFunction={showFunction} />
        </>
     );
 };
