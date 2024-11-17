@@ -277,16 +277,16 @@ setTimeout(()=>{
   }
     return (
        <>
-       <div className={` ${memoizedIntroData.hiddenIntroBack ? "":""}   w-full h-screen  relative overflow-hidden`}>
+       <div className={` ${memoizedIntroData.hiddenIntroBack ? "":""}  ${isMobile ? "":'flex justify-center items-center'}  w-full h-screen  relative overflow-hidden`}>
         <img src={AssetImage[2]} className={`w-full h-full absolute object-cover z-10 ${memoizedIntroData.animate_in_intro_back ? "animate-fadeIn":""} `} alt="" />
         {
             !memoizedIntroData.hiddenIntroBack && (
                 <div className={` ${isMobile ? "":"flex justify-center items-center"} ${memoizedIntroData.animate_out_intro ? "animate-fadeOut relative w-full h-full z-20 bg-black bg-opacity-50":"absolute w-full h-full z-20"}`}>
                        <img src={AssetImage[3]} className={` ${memoizedIntroData.hidden_center_image ? "hidden":""} ${memoizedIntroData.animate_in_centre_image ? "animate-fadeIn":""} ${memoizedIntroData.animate_center_image ? "animate-bounce":""} ${isMobile ? "w-1/2 h-1/2":"w-1/3 h-full object-cover rounded-full"} absolute ${isMobile ? "top-20 left-20":""} object-cover z-30`} alt="" />
-        <img src={AssetImage[0]} className={` ${memoizedIntroData.hidden_two_ballon ? "hidden":""} ${memoizedIntroData.animate_in_two_ballon ? "animate-fadeIn":""}  ${memoizedIntroData.animate_two_ballon ? "animate-skew":""} w-40 h-40 absolute object-cover top-40 left-4 z-20`} alt="" />
-        <img src={AssetImage[1]} className={` ${memoizedIntroData.hidden_two_ballon ? "hidden":""} ${memoizedIntroData.animate_in_two_ballon ? "animate-fadeIn":""} ${memoizedIntroData.animate_two_ballon ? "animate-skew":""} w-40 h-40 absolute object-cover top-40 right-10 z-20`} alt="" />
+        <img src={AssetImage[0]} className={` ${memoizedIntroData.hidden_two_ballon ? "hidden":""} ${memoizedIntroData.animate_in_two_ballon ? "animate-fadeIn":""}  ${memoizedIntroData.animate_two_ballon ? "animate-skew":""} ${isMobile ? "w-40 h-40 top-40 left-4":"w-80 h-80 left-60"} absolute  z-20`} alt="" />
+        <img src={AssetImage[1]} className={` ${memoizedIntroData.hidden_two_ballon ? "hidden":""} ${memoizedIntroData.animate_in_two_ballon ? "animate-fadeIn":""} ${memoizedIntroData.animate_two_ballon ? "animate-skew":""} ${isMobile ? "w-40 h-40 top-40 right-10":"w-80 h-80 right-60"} absolute  z-20`} alt="" />
         <div className={` ${hideRotates ? "hidden":""} ${animateCreate ? "hidden":""} ${animateDownRotates ? "animate-slideDown":""} ${animateInRotates ? "animate-fadeIn":""} absolute w-full h-full left-0 right-0 z-40 flex justify-center items-center`} >
-            <img src={AssetImage[7]} className={` ${animateImageRotate ? "animate-rotateCW":""} w-full h-80 object-cover absolute z-10`} alt="" />
+            <img src={AssetImage[7]} className={` ${animateImageRotate ? "animate-rotateCW":""} ${isMobile ? "w-full h-80 object-cover":"w-full h-full"} absolute z-10`} alt="" />
             <div className={` ${animateRotateText ? "w-full h-80":"w-80 h-80"} relative text-center `}>
             <h1 className={` ${animateRotateText ? "animate-rotateDeg text-4xl":"transform rotate-45"} font-extrabold text-center text-purple-700 mt-10 absolute z-40 ${ animateRotateText ?  "w-full h-full left-0 top-0":"w-40 h-40  top-10 left-20"} text-break`}>
             🎉 Craft the Perfect Birthday Surprise for Your Bestie! 🎂
@@ -296,11 +296,11 @@ setTimeout(()=>{
 
         </div>
         <div
-       className={` ${animateCreate ? "animate-slideUpToCurrent":"hidden"} w-full h-full absolute z-50 flex justify-center items-center cursor-pointer`}>
-        <div className='w-1/2 h-1/2 relative flex justify-center items-center' >
+       className={` ${animateCreate ? "animate-slideUpToCurrent":"hidden"} w-full h-full ${isMobile ? "":"py-10"} absolute z-50 flex justify-center items-center cursor-pointer`}>
+        <div className={`${isMobile ? "w-1/2 h-1/2":"w-1/2 h-full"} relative flex justify-center items-center`} >
         <img 
      
-        src={AssetImage[1]} className='w-full h-full object-cover' alt="" />
+        src={AssetImage[1]} className={` ${isMobile ? "object-cover":""} w-full h-full`} alt="" />
         <div 
            onClick={handleCreateClicked}
         className="absolute w-full h-full top-10 flex justify-center ">
@@ -317,7 +317,7 @@ setTimeout(()=>{
         {
             showCreateComponent && (
                 <>
-                  <div className='w-full h-full  animate-fadeIn bg-red-300 absolute z-20 flex justify-center items-center'>
+                  <div className={` ${isMobile ? "":"px-20"} w-full h-full  animate-fadeIn bg-red-300 absolute z-20 flex justify-center items-center`}>
                       <div className='w-full h-full relative flex justify-center items-center' >
                         <img src={AssetImage[4]} className={`absolute w-full h-full z-30 ${fadeOutIntro ? "animate-fadeOut":''}   ${descriptionShow ? "blur-md":""} `} alt="" />
                         <div className={` ${fadeOutNameAndImage ? "animate-fadeOut":""} absolute h-2/3 w-64 bg-black bg-opacity-50 z-40 flex flex-col gap-y-10 justify-center items-center p-10`} >
@@ -357,12 +357,12 @@ setTimeout(()=>{
                         </div>
                         {
                             descriptionShow && (
-                                <div className={` ${fadeOutDescriptionSection ? "animate-fadeOut":""}  absolute inset-y-10 w-full bg-black bg-opacity-50 z-40 flex flex-col gap-y-6 justify-center items-center p-4`} >
+                                <div className={` ${fadeOutDescriptionSection ? "animate-fadeOut":""} ${isMobile ? "p-4 inset-y-10":"px-80 py-10 inset-y-10 inset-x-20 left-0 "}  absolute w-full bg-black bg-opacity-50 z-40 flex flex-col gap-y-6 justify-center items-center`} >
                                   <div className={` ${rotateBirthDayCard ? "animate-fadeIn":''} w-full h-40 flex flex-row justify-center items-center relative  `} >
                                         <span className={`text-center p-4 bg-black bg-opacity-50 ${rotateMessageBirthDay ? "animate-rotateCCW z-50":"opacity-0"} `} >Message Your Friend</span>
-                                        <img src={birthdayCard} className={` ${rotateBirthDayCard ? "animate-rotateCW":"opacity-0"} w-full h-40 absolute top-0 left-0`} alt="" />
+                                        <img src={birthdayCard} className={` ${rotateBirthDayCard ? "animate-rotateCW":"opacity-0"} ${isMobile ? "w-full h-40 top-0 left-0":"w-60 h-60 top-0 z-50"}  absolute `} alt="" />
                                   </div>
-                                  <div className={`w-full flex justify-start items-start h-full p-4 relative`} >
+                                  <div className={`w-full flex justify-start items-start h-full ${isMobile ? "p-4":'p-10 mt-10'} relative`} >
                                        <textarea
                                        value={descriptionValue}
                                        onChange={(e)=>{
@@ -371,7 +371,7 @@ setTimeout(()=>{
                                         className={` ${rotateBirthDayCard ? "text-violet-600":"text-teal-400"} w-full h-full p-2 z-10 bg-red-300 bg-opacity-10 font-bold font-mono text-2xl word-break`}  placeholder="ENTER MESSAGE" name="" id=""></textarea>
                                         <img src={AssetImage[4]} className='w-full h-full absolute opacity-80  top-0 left-0 p-4' alt="" />
                                   </div>
-                                  <div className='w-full h-20  flex justify-center items-center' >
+                                  <div className='w-full h-20  flex justify-center items-center cursor-pointer' >
                                          <img 
                                          onClick={()=>{
                                             if(descriptionValue == ""){
@@ -382,7 +382,7 @@ setTimeout(()=>{
                                                  setFadeOutDescriptionSection(true);
                                             }
                                          }}
-                                         src={nextGif} className={` ${false ? "opacity-0":"animate-fadeIn"} w-40 h-20 object-cove`} alt="" />
+                                         src={nextGif} className={` ${false ? "opacity-0":"animate-fadeIn"} ${isMobile ? "w-40 h-20":"h-28 w-60"} object-cover`} alt="" />
                                   </div>
 
                                 </div>
@@ -391,7 +391,7 @@ setTimeout(()=>{
                         }
                         {
                             showSelectMusic && (
-                                <div className={` ${fadeOutIntro ? "animate-fadeOut z-10":"animate-fadeIn z-40"} w-full inset-y-10 bg-black flex flex-col justify-center items-center gap-y-6 bg-opacity-50  absolute`}>
+                                <div className={` ${fadeOutIntro ? "animate-fadeOut z-10":"animate-fadeIn z-40"} ${isMobile ? "":"p-10"} w-full inset-y-10 bg-black flex flex-col justify-center items-center gap-y-6 bg-opacity-50  absolute`}>
                                       <div className='w-full p-6 bg-gray-300 flex justify-center items-center' >
                                           <span className='text-white text-2xl' >SELECT MUSIC</span>
                                       </div>
