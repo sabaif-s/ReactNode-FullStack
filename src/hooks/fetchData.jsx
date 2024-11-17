@@ -12,7 +12,7 @@ const  FetchData = (sendData,data,clickedCreate) => {
     useEffect(()=>{
         const sendDataToBackEnd=async ()=>{
             try {
-                const sentData = await axios.post(`${import.meta.VITE_API_URL}/data/data`, data, {
+                const sentData = await axios.post(`${import.meta.env.VITE_API_URL}/data/data`, data, {
                     headers: {
                         'Content-Type': 'multipart/form-data', // Set the content type
                       },

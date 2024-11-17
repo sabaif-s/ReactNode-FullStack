@@ -17,7 +17,7 @@ const  ReceiveBackEndData = (userIdPar,userID) => {
 useEffect(()=>{
         const backEndDataFetch=async ()=>{
             try{
-             const data=await axios.get(`${import.meta.VITE_API_URL}/data/getUserData/${userIdToFetch}`);
+             const data=await axios.get(`${import.meta.env.VITE_API_URL}/data/getUserData/${userIdToFetch}`);
              if(data){
                 
                 
