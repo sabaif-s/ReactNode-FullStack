@@ -391,7 +391,7 @@ setTimeout(()=>{
                         }
                         {
                             showSelectMusic && (
-                                <div className={` ${fadeOutIntro ? "animate-fadeOut z-10":"animate-fadeIn z-40"} ${isMobile ? "":"p-10"} w-full inset-y-10 bg-black flex flex-col justify-center items-center gap-y-6 bg-opacity-50  absolute`}>
+                                <div className={` ${fadeOutIntro ? "animate-fadeOut z-10":"animate-fadeIn z-40"} ${isMobile ? "":"p-10"} ${isMobile ? "w-full inset-y-10":"w-1/2 inset-y-20 rounded-lg border-4 border-green-400"} bg-black flex flex-col justify-center items-center gap-y-6 bg-opacity-50  absolute`}>
                                       <div className='w-full p-6 bg-gray-300 flex justify-center items-center' >
                                           <span className='text-white text-2xl' >SELECT MUSIC</span>
                                       </div>
