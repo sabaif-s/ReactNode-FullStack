@@ -9,13 +9,13 @@ import CreatedCard from './components/home/createdCard.jsx';
 import Copy from './components/home/copy.jsx';
 import Waiting from './components/home/waiting.jsx';
 import CardHome from './components/home/cardHome.jsx';
-const basename = '/ReactNode-FullStack';
+// const basename = '/ReactNode-FullStack';
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <Provider store={store} >
-    <Router basename={basename}>
+    <Router>
       <Routes>
-        <Route path="/" element={<App />} />
+        <Route path="/ReactNode-FullStack/" element={<App />} />
         <Route path='/ReactNode-FullStack/card' element={<CreatedCard/>} ></Route>
         <Route path='/ReactNode-FullStack/waiting' element={<Waiting/>} ></Route>
         <Route path='/ReactNode-FullStack/copy' element={<Copy/>} ></Route>
