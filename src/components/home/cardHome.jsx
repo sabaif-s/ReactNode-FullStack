@@ -14,6 +14,7 @@ import thirdMusic from '../../assets/audio/oromicMusic.m4a';
 import fourthMusic from '../../assets/audio/samiBerhane.m4a';
 import { useParams } from 'react-router-dom';
 import ReceiveBackEndData from '../../hooks/receiveBackEndData';
+import ScreenSize from './screen';
 import CardForShow from './cardForShow';
 import Copy from './copy';
 const  CardHome = ({userData,userId}) => {
@@ -38,6 +39,7 @@ const  CardHome = ({userData,userId}) => {
     const [description,setDescription]=useState("");
     const [animateOutCard,setAnimateOutCard]=useState(false);
     const [usersId,setUsersId]=useState("");
+    const {isDesktop,isMobile,isTablet}=ScreenSize();
 
     const [showIntroCard,setShowIntroCard]=useState(true);
     useEffect(()=>{
@@ -151,14 +153,14 @@ const  CardHome = ({userData,userId}) => {
          <>
          {
             !showIntroCard && (
-                <div className={` ${showCopy ? "hidden":""} ${animateOutCard ? "animate-fadeOut":"animate-fadeIn"} w-full h-screen absolute `} >
+                <div className={` ${showCopy ? "hidden":""} ${animateOutCard ? "animate-fadeOut":"animate-fadeIn"} ${isMobile ? "":"p-10 left-0 top-0  overflow-hidden"} w-full h-screen absolute `} >
                 <img src={profileBack4} className={` ${animateInBack ? "animate-fadeIn":"hidden"} w-full h-full absolute z-10`} alt="" />
-                 <div className={` inset-y-24 inset-x-10  absolute z-50 flex flex-col justify-start pt-10 items-center  `} >
+                 <div className={` ${isMobile ? "":"p-40"} inset-y-24 inset-x-10  absolute z-50 flex flex-col justify-start pt-10 items-center  `} >
                             <div className='w-full h-60 relative flex justify-center items-center' >
-                              <img src={profileBack} className={` ${animateOutBack ? "animate-fadeOut":""} ${animateInProfileBack ? "animate-fadeIn":'hidden'} w-full h-full absolute z-10`} alt="" />
+                              <img src={profileBack} className={` ${animateOutBack ? "animate-fadeOut":""} ${animateInProfileBack ? "animate-fadeIn":'hidden'} ${isMobile ? "w-full":"w-80"} h-full absolute z-10`} alt="" />
                               <img src={imageUrl} className={` ${animateOutBack ? "animate-fadeOut":""} w-28 h-28 z-20 absolute top-12 rounded-full ${animateInProfileImage ? "animate-fadeIn":"hidden"} `} alt="" />
                             </div>
-                            <div className={`w-full absolute h-10 z-10  top-0 flex justify-center items-center ${animateOutBack ? "animate-fadeOut":""} `} >
+                            <div className={`${isMobile ? "w-full":"w-80"} absolute h-10 z-10  top-0 flex justify-center items-center ${animateOutBack ? "animate-fadeOut":""} `} >
                                       <img src={welcome} className='w-full h-full' alt="" />
                             </div>
                             <div
@@ -170,7 +172,7 @@ const  CardHome = ({userData,userId}) => {
                             }}
                             className={` ${animateOutBack ? "animate-fadeOut":""} ${animateRotateGift ? "animate-fadeIn":""} w-full h-80  flex justify-center items-center relative cursor-pointer`} >
                                 <img src={gift} className={` ${animateInGift ? "animate-fadeIn":""} ${animateRotateGift ? "animate-rotateCW":"hidden"} w-60 h-60 rounded-full`} alt="" />
-                                <img src={click} className={`w-full h-20 absolute z-10 ${animateRotateClick ? "animate-rotateCCW":"hidden"} `} alt="" />
+                                <img src={click} className={`${isMobile ? "w-full":"w-80"} h-20 absolute z-10 ${animateRotateClick ? "animate-rotateCCW":"hidden"} `} alt="" />
                             </div>
                             <div className={`inset-0 absolute z-20 flex justify-center items-start ${animateOutBack ? "":"hidden"} `} >
                             <span className={` ${animateOutBack ? "animate-slideUpToCurrentSlow":""} word-break h-full  text-blue-600 font-bold p-6 text-xl`}>

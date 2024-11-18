@@ -14,12 +14,14 @@ import backImageBackGround from '../../assets/images/92990.jpg';
 import bulbSound from '../../assets/audio/light-switch-156813.mp3';
 import bulbShake from '../../assets/audio/light-bulb-shaking-30940.mp3';
 import shakeBulb from '../../assets/images/shakeBulbBack.jpg';
+import ScreenSize from './screen';
 const  LightOnOff = ({showFunction}) => {
     const [animateInTopLight,setAnimateInTopLight]=useState(false);
     const [animateInBottomLight,setAnimateInBottomLight]=useState(false);
     const [animateLightBackTop,setAnimateLightBackTop]=useState(false);
     const [animateLightBackBottom,setAnimateLightBackBottom]=useState(false);
     const [animateOutComponent,setAnimateOutComponent]=useState(false);
+    const {isMobile,isDesktop,isTablet}=ScreenSize();
     const audioRef=useRef(null);
     const audioRef2=useRef(null);
     useEffect(()=>{
@@ -60,13 +62,29 @@ const  LightOnOff = ({showFunction}) => {
                            },1500);
                         },100);
                     }}
-                    src={bulbDim} className={`${animateInTopLight ? "animate-fadeOut":"animate-bounce"} w-40 h-40 z-20 cursor-pointer`} alt="" />
+                    src={bulbDim} className={`${animateInTopLight ? "animate-fadeOut":"animate-bounce"} ${isMobile ? "w-40 h-40":"w-80 h-80"} z-20 cursor-pointer`} alt="" />
                     </div>
                     <div className={`${animateInTopLight ? "animate-fadeIn":"opacity-0"} w-full h-1/2 absolute z-10 flex justify-start items-center`} >
                          <img src={bulbLight3} className='w-full h-full ' alt="" />
+                         {
+                            !isMobile && (
+                                <img src={bulbLight3} className='w-full h-full ' alt="" />
+                            )
+                         }
+                       
                          {/* <img src={bulbLight2} className='w-full h-40' alt="" /> */}
                     </div>
                     <div className={`w-full ${animateInBottomLight ? "animate-fadeIn":"opacity-0"} h-1/2 absolute z-10 bottom-0 z-0 flex justify-start items-center`} >
+                    {
+                        !isMobile && (
+                            <>
+                            <img src={bulbLight5Left} className='w-1/3 h-full animate-shakeSlowLeft z-10' alt="" />
+                            <img src={bulbLight5Center} className='w-1/3 h-full z-10 animate-shakeSlow' alt="" />
+                            <img src={bulbLight5Right} className='w-1/3 h-full animate-shakeSlowLeft z-10' alt="" />
+                            <img src={shakeBulb} className='w-full h-full absolute z-0' alt="" />
+                            </>
+                        )
+                    }
                          <img src={bulbLight5Left} className='w-1/3 h-full animate-shakeSlowLeft z-10' alt="" />
                          <img src={bulbLight5Center} className='w-1/3 h-full z-10 animate-shakeSlow' alt="" />
                          <img src={bulbLight5Right} className='w-1/3 h-full animate-shakeSlowLeft z-10' alt="" />

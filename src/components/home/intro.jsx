@@ -90,8 +90,12 @@ const  Intro = () => {
           setFadeOutIntro(true);
           
           const pausedAudio=audioRefCollection[selectedMusic];
-          pausedAudio.current.pause();
-          console.log(pausedAudio);
+          pausedAudio.current.volume=0.5;
+          setTimeout(()=>{
+            pausedAudio.current.pause();
+            console.log(pausedAudio);
+          },1500);
+         
           
          }
     },[success]);

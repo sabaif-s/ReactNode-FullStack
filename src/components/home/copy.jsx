@@ -3,6 +3,7 @@ import backShare from '../../assets/images/92990.jpg';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import shareImage from '../../assets/images/share.png';
 import { useEffect,useState } from 'react';
+import ScreenSize from './screen';
 import { useParams } from 'react-router-dom';
 const  Copy = ({userId,userIdPar}) => {
     const [link,setLink]=useState('');
@@ -10,6 +11,7 @@ const  Copy = ({userId,userIdPar}) => {
     const textToCopy = "HELLOO SEBAIF MUHAMMED UMER ADEM SHEKA HARBEE";
   const [copySuccess, setCopySuccess] = useState('');
   const [showCopySuccess,setShowCopySuccess]=useState(false);
+  const {isDesktop,isMobile,isTablet}=ScreenSize();
 
     // useEffect(()=>{
     //        console.log(window.location.href);
@@ -44,7 +46,7 @@ const  Copy = ({userId,userIdPar}) => {
                   <img src={shareImage} className='w-full h-full rounded-full' alt="" />
             </div>
             <div className="flex flex-col items-center absolute z-50 w-full h-full flex justify-center items-center animate-fadeIn">
-      <span className="word-break text-blue-600 font-bold mb-4 w-2/3 text-center bg-gray-300 p-4 overflow-x-auto z-10">
+      <span className={`${isMobile ? "w-2/3":"w-1/2"} word-break text-blue-600 font-bold mb-4 text-center bg-gray-300 p-4 overflow-x-auto z-10`}>
         {link}
       </span>
       <CopyToClipboard text={link} onCopy={() => setCopySuccess('Copied!')}>
