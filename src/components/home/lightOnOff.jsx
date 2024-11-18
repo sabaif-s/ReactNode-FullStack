@@ -31,12 +31,15 @@ const  LightOnOff = ({showFunction}) => {
           const images=[bulbLight,bulbDim,bulbLight2,bulbLight4,imageBack,flowers];
     return (
         <>
-        <div className={`w-full h-screen  absolute z-40 ${animateOutComponent ? "animate-fadeOut":""} ` } >
+        <div className={`w-full h-screen  absolute bg-black bg-opacity-90 ${animateOutComponent ? "animate-fadeOut":""} ` } >
                     <img src={
                       isMobile ?
                       backImageBackGround:backDesk
-                      } className={` ${animateInTopLight ? "opacity-50":"opacity-100"} absolute w-full h-full z-10`} alt="" />
-                    <div className='w-full h-full absolute flex justify-center items-center' >
+                      } className={` ${animateInTopLight ? "opacity-50":"opacity-0"} absolute w-full h-full z-10`} alt="" />
+                    <div className='w-full h-full absolute z-50 flex justify-center items-center ' >
+                      <div className={`${animateInTopLight ? "opacity-0":""}`}>
+
+                    
                     <img
                     onClick={()=>{
                         setTimeout(()=>{
@@ -63,10 +66,11 @@ const  LightOnOff = ({showFunction}) => {
                                     },1500);
                                    },1500);
                              },1500);
-                           },1500);
+                           },300);
                         },100);
                     }}
                     src={bulbDim} className={`${animateInTopLight ? "animate-fadeOut":"animate-bounce"} ${isMobile ? "w-40 h-40":"w-80 h-80"} z-20 cursor-pointer`} alt="" />
+                      </div>
                     </div>
                     <div className={`${animateInTopLight ? "animate-fadeIn":"opacity-0"} w-full h-1/2 absolute z-10 flex justify-start items-center`} >
                          <img src={bulbLight3} className='w-full h-full ' alt="" />

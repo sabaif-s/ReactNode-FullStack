@@ -72,6 +72,26 @@ module.exports = {
         slideUpToCurrentSlow:{
           '0%':{transform : "translateY(100%)"},
           '100%':{transform : "translateY(0)"}
+        },
+        slideBL:{
+          '0%':{transform : "translateY(-100%) translateX(100%)", opacity:"0"},
+          '80%':{opacity : "0.2"},
+          '100%':{transform : "translateY(0) translateX(0)", opacity:"1"},
+        },
+        slideTR:{
+          '0%':{transform : "translateY(100%) translateX(-100%)", opacity:"0"},
+          '80%':{opacity : "0.2"},
+          '100%':{transform : "translateY(0) translateX(0)", opacity:"1"},
+        },
+        slideTL:{
+          '0%':{transform : "translateY(100%) translateX(100%)", opacity:"0"},
+          '80%':{opacity : "0.2"},
+          '100%':{transform : "translateY(0) translateX(0)", opacity:"1"},
+        },
+        slideBR:{
+          '0%':{transform : "translateY(-100%) translateX(-100%)", opacity:"0"},
+          '80%':{opacity : "0.2"},
+          '100%':{transform : "translateY(0) translateX(0)", opacity:"1"},
         }
       },
       animation: {
@@ -90,7 +110,11 @@ module.exports = {
         rotateCCW:"rotateCCW 3s ease-in forwards",
         shake:"shake 0.4s ease-in infinite",
           shakeSlow:"shake 5s ease-in infinite",
-          shakeSlowLeft:"shakeLeft 5s ease-in infinite"
+          shakeSlowLeft:"shakeLeft 5s ease-in infinite",
+          slideBL:"slideBL 1.5s ease-in-out forwards",
+          slideTL:"slideTL 1.5s ease-in-out forwards",
+          slideTR:"slideTR 1.5s ease-in-out forwards",
+          slideBR:"slideBR 1.5s ease-in-out forwards"
       },
     },
   },

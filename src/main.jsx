@@ -10,7 +10,9 @@ import Copy from './components/home/copy.jsx';
 import Waiting from './components/home/waiting.jsx';
 import CardHome from './components/home/cardHome.jsx';
 import CardForShow from './components/home/cardForShow.jsx';
+import FlowersCard from './components/home/flowers.jsx';
 const basename = '/ReactNode-FullStack';
+
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <Provider store={store} >
@@ -22,6 +24,7 @@ createRoot(document.getElementById('root')).render(
         <Route path='/copy' element={<Copy/>} ></Route>
         <Route path='/watch/:userIdPar' element={<CardHome  userId={""}userData={[]} />} ></Route>
         <Route path='/cardForShow' element={<CardForShow/>} ></Route>
+        <Route path='/flowers' element={<FlowersCard/>} ></Route>
       </Routes>
     </Router>
     </Provider>
