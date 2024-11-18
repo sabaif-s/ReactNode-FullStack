@@ -15,6 +15,7 @@ import FetchData from '../../hooks/fetchData';
 import CreatedCard from './createdCard';
 import ScreenSize from './screen';
 import Waiting from './waiting';
+import backDesk from '../../assets/images/backDeskImage.jpg';
 import Copy from './copy';
 import {AnimateInIntroBack,AnimateOutIntro,HideIntroBack,AnimateBallon,AnimateCenterImage,AnimateInBallon,AnimateInCentreImage} from '../../redux/intro/introAction'
 import Alert from './alert';
@@ -321,10 +322,13 @@ setTimeout(()=>{
         {
             showCreateComponent && (
                 <>
-                  <div className={` ${isMobile ? "":"px-20"} w-full h-full  animate-fadeIn bg-red-300 absolute z-20 flex justify-center items-center`}>
+                  <div className={` ${isMobile ? "":""} w-full h-full  animate-fadeIn bg-red-300 absolute z-20 flex justify-center items-center`}>
                       <div className='w-full h-full relative flex justify-center items-center' >
-                        <img src={AssetImage[4]} className={`absolute w-full h-full z-30 ${fadeOutIntro ? "animate-fadeOut":''}   ${descriptionShow ? "blur-md":""} `} alt="" />
-                        <div className={` ${fadeOutNameAndImage ? "animate-fadeOut":""} absolute h-2/3 w-64 bg-black bg-opacity-50 z-40 flex flex-col gap-y-10 justify-center items-center p-10`} >
+                        <img src={
+                          isMobile ? 
+                          AssetImage[4]:backDesk 
+                          } className={`absolute w-full h-full z-30 ${fadeOutIntro ? "animate-fadeOut":''}   ${descriptionShow && isMobile ? "blur-md":""} `} alt="" />
+                        <div className={` ${fadeOutNameAndImage ? "animate-fadeOut":""} absolute h-2/3  ${isMobile ?  " w-64 bg-black bg-opacity-50":"w-1/2"} z-40 flex flex-col gap-y-10 justify-center items-center p-10`} >
                         <input
                 value={inputValue}
                 onChange={(e)=>{
@@ -332,12 +336,12 @@ setTimeout(()=>{
                 }}
                 type="text"
                 placeholder="Enter Your Friends Name"
-                className={`border-b border-gray-400 focus:border-blue-500 focus:outline-none w-full py-1 text-center bg-red-300 bg-opacity-0 ${fadeOutNameAndImage ? "animate-fadeOut":""} `}
+                className={`border-b border-gray-400 focus:border-blue-500 focus:outline-none ${isMobile ? "w-full":"w-2/3"} py-1 text-center bg-red-300 bg-opacity-0 ${isMobile ? "":"text-4xl"} ${fadeOutNameAndImage ? "animate-fadeOut":""} `}
             />
                 <div
                 onClick={uploadClicked}
                 className={` ${showProfileUpload ? "":"hidden"} ${fadeOutNameAndImage ? "animate-fadeOut":""} ${preview == null ? "h-20":""} w-full  relative flex justify-center items-center ${animateUp ? "animate-rotateCCW":""} ${animateDown ? "animate-rotateCW":""} `} >
-                      <span className={` ${preview != null ? "hidden":""} w-full text-center`}>
+                      <span className={` ${preview != null ? "hidden":""} ${isMobile ? "":"text-2xl"} w-full text-center`}>
                         {
                             animateDown ? "UPLOAD PICTURE":""
                         }
@@ -347,8 +351,8 @@ setTimeout(()=>{
                         
                         </span>
                       {/* <img src={AssetImage[2]} className='w-16 h-16 rounded-full absolute animate-slideUpToCurrent' alt="" /> */}
-                      <img src={uploadImage} className={` ${animateUp || preview != null ? "hidden":""} w-16 h-16 rounded-full animate-slideUpToCurrent`} alt="" />
-                      <img src={preview} className={` ${preview == null ? "hidden":""} ${fadeOutNameAndImage ? "animate-fadeOut":"animate-slideUpToCurrent"} w-40 h-40 rounded-full `} alt="" />
+                      <img src={uploadImage} className={` ${animateUp || preview != null ? "hidden":""} ${isMobile ? "w-16 h-16":"w-40 h-40"}  rounded-full animate-slideUpToCurrent`} alt="" />
+                      <img src={preview} className={` ${preview == null ? "hidden":""} ${fadeOutNameAndImage ? "animate-fadeOut":"animate-slideUpToCurrent"} ${isMobile ? "w-40 h-40":"w-80 h-80"} rounded-full `} alt="" />
                 </div>
                 {/* <div className={` ${true ? "":"hidden"} min-h-40 max-h-64 bg-gray-300 overflow-y-scroll w-full flex justify-start items-start overflow-x-hidden text-break`} >
                         <span className='w-full break-words' >
@@ -361,7 +365,7 @@ setTimeout(()=>{
                         </div>
                         {
                             descriptionShow && (
-                                <div className={` ${fadeOutDescriptionSection ? "animate-fadeOut":""} ${isMobile ? "p-4 inset-y-10":"px-80 py-10 inset-y-10 inset-x-20 left-0 "}  absolute w-full bg-black bg-opacity-50 z-40 flex flex-col gap-y-6 justify-center items-center`} >
+                                <div className={` ${fadeOutDescriptionSection ? "animate-fadeOut":""} ${isMobile ? "p-4 inset-y-10":"px-80 py-10 inset-y-10 inset-x-20 left-0 "}  absolute w-full ${isMobile ? "bg-black bg-opacity-50":""} z-40 flex flex-col gap-y-6 justify-center items-center`} >
                                   <div className={` ${rotateBirthDayCard ? "animate-fadeIn":''} w-full h-40 flex flex-row justify-center items-center relative  `} >
                                         <span className={`text-center p-4 bg-black bg-opacity-50 ${rotateMessageBirthDay ? "animate-rotateCCW z-50":"opacity-0"} `} >Message Your Friend</span>
                                         <img src={birthdayCard} className={` ${rotateBirthDayCard ? "animate-rotateCW":"opacity-0"} ${isMobile ? "w-full h-40 top-0 left-0":"w-60 h-60 top-0 z-50"}  absolute `} alt="" />

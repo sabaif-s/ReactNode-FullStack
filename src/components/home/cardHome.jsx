@@ -4,6 +4,7 @@ import profileBack from '../../assets/images/profileBack.jpg';
 import profileBack2 from '../../assets/images/rb_32582.png';
 import profileBack3 from '../../assets/images/13514304_SL.111019.24830.39.jpg';
 import profileBack4 from '../../assets/images/92990.jpg';
+import backDesk from '../../assets/images/backDeskImage.jpg';
 import sabk from '../../assets/images/sabk.jpeg';
 import welcome from '../../assets/images/welcome.png';
 import gift from '../../assets/images/18203 (1).jpg';
@@ -153,8 +154,12 @@ const  CardHome = ({userData,userId}) => {
          <>
          {
             !showIntroCard && (
-                <div className={` ${showCopy ? "hidden":""} ${animateOutCard ? "animate-fadeOut":"animate-fadeIn"} ${isMobile ? "":"p-10 left-0 top-0  overflow-hidden"} w-full h-screen absolute `} >
-                <img src={profileBack4} className={` ${animateInBack ? "animate-fadeIn":"hidden"} w-full h-full absolute z-10`} alt="" />
+                <div className={` ${showCopy ? "hidden":""} ${animateOutCard ? "animate-fadeOut":"animate-fadeIn"} ${isMobile ? "":""} w-full h-screen absolute `} >
+                <img src={
+                    isMobile ? 
+                    profileBack4:backDesk
+                    
+                    } className={` ${animateInBack ? "animate-fadeIn":"hidden"} w-full h-full absolute z-10`} alt="" />
                  <div className={` ${isMobile ? "":"p-40"} inset-y-24 inset-x-10  absolute z-50 flex flex-col justify-start pt-10 items-center  `} >
                             <div className='w-full h-60 relative flex justify-center items-center' >
                               <img src={profileBack} className={` ${animateOutBack ? "animate-fadeOut":""} ${animateInProfileBack ? "animate-fadeIn":'hidden'} ${isMobile ? "w-full":"w-80"} h-full absolute z-10`} alt="" />
@@ -175,7 +180,10 @@ const  CardHome = ({userData,userId}) => {
                                 <img src={click} className={`${isMobile ? "w-full":"w-80"} h-20 absolute z-10 ${animateRotateClick ? "animate-rotateCCW":"hidden"} `} alt="" />
                             </div>
                             <div className={`inset-0 absolute z-20 flex justify-center items-start ${animateOutBack ? "":"hidden"} `} >
-                            <span className={` ${animateOutBack ? "animate-slideUpToCurrentSlow":""} word-break h-full  text-blue-600 font-bold p-6 text-xl`}>
+                                <div className={`${isMobile ? "hidden":"w-1/3 h-3/4 absolute opacity-50"}`} >
+                                    <img src={profileBack4} className={`w-full h-full ${animateOutBack ? "animate-slideUpToCurrentSlow":""}`} alt="" />
+                                </div>
+                            <span className={` ${animateOutBack ? "animate-slideUpToCurrentSlow":""} ${isMobile ? "h-full":"bg-black bg-opacity-50 w-1/3 h-3/4 overflow-y-scroll"} word-break  text-blue-600 font-bold p-6 text-xl`}>
                                    {description}
     </span>
                             </div>

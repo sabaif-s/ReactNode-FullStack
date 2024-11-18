@@ -1,5 +1,6 @@
 import React from 'react';
 import backShare from '../../assets/images/92990.jpg';
+import backDesk from '../../assets/images/backDeskImage.jpg';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import shareImage from '../../assets/images/share.png';
 import { useEffect,useState } from 'react';
@@ -41,7 +42,10 @@ const  Copy = ({userId,userIdPar}) => {
         <div
         className='w-full h-screen absolute flex justify-center items-center'
         >
-            <img src={backShare} className='w-full h-full absolute z-10 animate-fadeIn' alt="" />
+            <img src={
+              isMobile ? 
+              backShare:backDesk
+              } className='w-full h-full absolute z-10 animate-fadeIn' alt="" />
             <div className={` ${copySuccess == "" ? "animate-skewFast":""} w-40 h-40 top-24 absolute z-20`} >
                   <img src={shareImage} className='w-full h-full rounded-full' alt="" />
             </div>

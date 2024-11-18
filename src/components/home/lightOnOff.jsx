@@ -11,6 +11,7 @@ import bulbLight5Right from '../../assets/images/bulbLight.jpg';
 import imageBack from '../../assets/images/imageBack.jpg';
 import flowers from '../../assets/images/flowers1.jpg';
 import backImageBackGround from '../../assets/images/92990.jpg';
+import backDesk from '../../assets/images/backDeskImage.jpg';
 import bulbSound from '../../assets/audio/light-switch-156813.mp3';
 import bulbShake from '../../assets/audio/light-bulb-shaking-30940.mp3';
 import shakeBulb from '../../assets/images/shakeBulbBack.jpg';
@@ -31,7 +32,10 @@ const  LightOnOff = ({showFunction}) => {
     return (
         <>
         <div className={`w-full h-screen  absolute z-40 ${animateOutComponent ? "animate-fadeOut":""} ` } >
-                    <img src={backImageBackGround} className={` ${animateInTopLight ? "opacity-50":"opacity-100"} absolute w-full h-full z-10`} alt="" />
+                    <img src={
+                      isMobile ?
+                      backImageBackGround:backDesk
+                      } className={` ${animateInTopLight ? "opacity-50":"opacity-100"} absolute w-full h-full z-10`} alt="" />
                     <div className='w-full h-full absolute flex justify-center items-center' >
                     <img
                     onClick={()=>{

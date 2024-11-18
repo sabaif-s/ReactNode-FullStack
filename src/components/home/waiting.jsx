@@ -4,6 +4,8 @@ import percent75 from '../../assets/images/75.png';
 import percent25 from '../../assets/images/25.png';
 import percent100 from '../../assets/images/100.png';
 import backImage from '../../assets/images/92990.jpg';
+import backDesk from '../../assets/images/backDeskImage.jpg';
+import ScreenSize from './screen';
 import { DotLottieReact } from '@lottiefiles/dotlottie-react';
 import CreatedCard from './createdCard';
 const  Waiting = ({userId}) => {
@@ -19,6 +21,7 @@ const  Waiting = ({userId}) => {
     const [animateOutWaiting,setAnimateOutWaiting]=useState(false);
     const [animateInBall,setAnimateInBall]=useState(false);
     const [hideWaiting,setHideWaiting]=useState(false);
+    const {isDesktop,isMobile,isTablet}=ScreenSize();
     useEffect(()=>{
      setTimeout(()=>{
           setAnimateInGenerating(true);
@@ -65,7 +68,10 @@ const  Waiting = ({userId}) => {
     return (
         <>
         <div className='w-full h-screen relative flex justify-center items-center relative  overflow-y-hidden' >
-                <img src={backImage} className={` ${animateOutWaiting ? "animate-fadeOut":""} ${hideWaiting ? "hidden":" animate-fadeIn"} w-full h-full absolute z-0`} alt="" />
+                <img src={
+                    isMobile ?
+                    backImage:backDesk
+                    } className={` ${animateOutWaiting ? "animate-fadeOut":""} ${hideWaiting ? "hidden":" animate-fadeIn"} w-full h-full absolute z-0`} alt="" />
                  <div className={` ${animateOutWaiting? "animate-fadeOut":""} ${hideWaiting ? "hidden":""} relative flex justify-center items-center bg-black bg-opacity-50 `}>
                  <DotLottieReact
       src="https://lottie.host/abfe0a01-0451-416e-9348-9d430fda4f41/iNTtGKCAwb.json"
