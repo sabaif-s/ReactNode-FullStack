@@ -16,7 +16,7 @@ import bulbSound from '../../assets/audio/light-switch-156813.mp3';
 import bulbShake from '../../assets/audio/light-bulb-shaking-30940.mp3';
 import shakeBulb from '../../assets/images/shakeBulbBack.jpg';
 import ScreenSize from './screen';
-const  LightOnOff = ({showFunction}) => {
+const  LightOnOff = React.memo(({showFunctions}) => {
     const [animateInTopLight,setAnimateInTopLight]=useState(false);
     const [animateInBottomLight,setAnimateInBottomLight]=useState(false);
     const [animateLightBackTop,setAnimateLightBackTop]=useState(false);
@@ -25,9 +25,7 @@ const  LightOnOff = ({showFunction}) => {
     const {isMobile,isDesktop,isTablet}=ScreenSize();
     const audioRef=useRef(null);
     const audioRef2=useRef(null);
-    useEffect(()=>{
-
-    },[]);
+   
           const images=[bulbLight,bulbDim,bulbLight2,bulbLight4,imageBack,flowers];
     return (
         <>
@@ -43,7 +41,7 @@ const  LightOnOff = ({showFunction}) => {
                     <img
                     onClick={()=>{
                         setTimeout(()=>{
-                           audioRef.current.play();
+                          //  audioRef.current.play();
                            setTimeout(()=>{
                              setAnimateInTopLight(true);
                              setTimeout(()=>{
@@ -60,13 +58,14 @@ const  LightOnOff = ({showFunction}) => {
                                          setTimeout(()=>{
                                            audioRef2.current.pause();
                                            setAnimateOutComponent(true);
-                                           showFunction();
+                                           console.log(showFunctions);
+                                           showFunctions()
                                          },10000);
                                       },1000);
                                     },1500);
-                                   },1500);
+                                   },1000);
                              },1500);
-                           },300);
+                           },1000);
                         },100);
                     }}
                     src={bulbDim} className={`${animateInTopLight ? "animate-fadeOut":"animate-bounce"} ${isMobile ? "w-40 h-40":"w-80 h-80"} z-20 cursor-pointer`} alt="" />
@@ -106,6 +105,6 @@ const  LightOnOff = ({showFunction}) => {
       <audio src={bulbShake}ref={audioRef2} ></audio>
       </>
     );
-};
+});
 
 export default  LightOnOff;

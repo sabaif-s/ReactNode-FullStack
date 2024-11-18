@@ -1,5 +1,6 @@
 import React from 'react';
 import { useEffect,useState,useRef,useCallback } from 'react';
+import { useSelector,useDispatch } from 'react-redux';
 import profileBack from '../../assets/images/profileBack.jpg';
 import profileBack2 from '../../assets/images/rb_32582.png';
 import profileBack3 from '../../assets/images/13514304_SL.111019.24830.39.jpg';
@@ -19,7 +20,9 @@ import ScreenSize from './screen';
 import CardForShow from './cardForShow';
 import FlowersCard from './flowers';
 import Copy from './copy';
-const  CardHome = ({userData,userId}) => {
+import LightOnOff from './lightOnOff';
+ 
+const  CardHome = React.memo(({userData,userId}) => {
     const images=[profileBack,profileBack2,profileBack3,profileBack4];
     const {userIdPar}=useParams();
     const {userDataShow}=ReceiveBackEndData(userIdPar,userId);
@@ -42,8 +45,18 @@ const  CardHome = ({userData,userId}) => {
     const [animateOutCard,setAnimateOutCard]=useState(false);
     const [usersId,setUsersId]=useState("");
     const {isDesktop,isMobile,isTablet}=ScreenSize();
+    const [onceSlideUp,setOnceSlideUp]=useState(false);
 
     const [showIntroCard,setShowIntroCard]=useState(true);
+    // const lightData=useSelector((state)=>{
+    //     return state.light;
+    // });
+//  console.log(lightData);
+//     useEffect(()=>{
+//        if(lightData != ""){
+//         console.log("light data:",lightData);
+//        }
+//     },[lightData]);
     useEffect(()=>{
       
        
@@ -94,17 +107,14 @@ const  CardHome = ({userData,userId}) => {
     },[animateInBack]);
     useEffect(()=>{
         if(showCopy){
+            setOnceSlideUp(true);
             setTimeout(()=>{
                 setShowCopy(false);
                 setAnimateOutCard(false);
                 setTimeout(()=>{
                        setAnimateOutCard(true);
                        setTimeout(()=>{
-                        
-                    
                           setShowCopy(true);
-                
-                            
                        },1500);
                 },20000);
                },5000);
@@ -155,9 +165,10 @@ const  CardHome = ({userData,userId}) => {
         } 
      },[animateRotateClick])
 
-        const showFunction=useCallback(()=>{
-                     setShowIntroCard(false);
-        });
+     function showFunction () {
+        setShowIntroCard(false);
+        console.log("show function");
+    };
     return (
          <>
          {
@@ -170,8 +181,8 @@ const  CardHome = ({userData,userId}) => {
                     } className={` ${animateInBack ? "animate-fadeIn":"hidden"} w-full h-full absolute z-10`} alt="" />
                  <div className={` ${isMobile ? "":"p-40"} inset-y-24 inset-x-10  absolute z-50 flex flex-col justify-start pt-10 items-center  `} >
                             <div className='w-full h-60 relative flex justify-center items-center' >
-                              <img src={profileBack} className={` ${animateOutBack ? "animate-fadeOut":""} ${animateInProfileBack ? "animate-fadeIn":'hidden'} ${isMobile ? "w-full":"w-80"} h-full absolute z-10`} alt="" />
-                              <img src={imageUrl} className={` ${animateOutBack ? "animate-fadeOut":""} w-28 h-28 z-20 absolute top-12 rounded-full ${animateInProfileImage ? "animate-fadeIn":"hidden"} `} alt="" />
+                              <img src={profileBack} className={` ${animateOutBack ? "animate-fadeOut":""} ${animateInProfileBack && !onceSlideUp ? "animate-fadeIn":'hidden'} ${isMobile ? "w-full":"w-80"} h-full absolute z-10`} alt="" />
+                              <img src={imageUrl} className={` ${animateOutBack ? "animate-fadeOut":""} w-28 h-28 z-20 absolute top-12 rounded-full ${animateInProfileImage && !onceSlideUp ? "animate-fadeIn":"hidden"} `} alt="" />
                             </div>
                             <div className={`${isMobile ? "w-full":"w-80"} absolute h-10 z-10  top-0 flex justify-center items-center ${animateOutBack ? "animate-fadeOut":""} `} >
                                       <img src={welcome} className='w-full h-full' alt="" />
@@ -184,14 +195,14 @@ const  CardHome = ({userData,userId}) => {
                                
                             }}
                             className={` ${animateOutBack ? "animate-fadeOut":""} ${animateRotateGift ? "animate-fadeIn":""} w-full h-80  flex justify-center items-center relative cursor-pointer`} >
-                                <img src={gift} className={` ${animateInGift ? "animate-fadeIn":""} ${animateRotateGift ? "animate-rotateCW":"hidden"} w-60 h-60 rounded-full`} alt="" />
-                                <img src={click} className={`${isMobile ? "w-full":"w-80"} h-20 absolute z-10 ${animateRotateClick ? "animate-rotateCCW":"hidden"} `} alt="" />
+                                <img src={gift} className={` ${animateInGift  ? "animate-fadeIn":""} ${animateRotateGift && !onceSlideUp ? "animate-rotateCW":"hidden"} w-60 h-60 rounded-full`} alt="" />
+                                <img src={click} className={`${isMobile ? "w-full":"w-80"} h-20 absolute z-10 ${animateRotateClick && !onceSlideUp ? "animate-rotateCCW":"hidden"} `} alt="" />
                             </div>
                             <div className={`inset-0 absolute z-20 flex justify-center items-start ${animateOutBack ? "":"hidden"} `} >
                                 <div className={`${isMobile ? "hidden":"w-1/3 h-3/4 absolute opacity-50"}`} >
                                     <img src={profileBack4} className={`w-full h-full ${animateOutBack ? "animate-slideUpToCurrentSlow":""}`} alt="" />
                                 </div>
-                            <span className={` ${animateOutBack ? "animate-slideUpToCurrentSlow":""} ${isMobile ? "h-full":"bg-black bg-opacity-50 w-1/3 h-3/4 overflow-y-scroll"} word-break  text-blue-600 font-bold p-6 text-xl`}>
+                            <span className={` ${animateOutBack && !onceSlideUp ? "animate-slideUpToCurrentSlow":""} ${isMobile ? "h-full":"bg-black bg-opacity-50 w-1/3 h-3/4 overflow-y-scroll"} word-break  text-blue-600 font-bold p-6 text-xl`}>
                                    {description}
     </span>
                             </div>
@@ -207,7 +218,7 @@ const  CardHome = ({userData,userId}) => {
          }
          {
             showIntroCard && (
-                <CardForShow  showFunction={showFunction} />
+                <LightOnOff  showFunctions={showFunction} />
             )
          }
            
@@ -248,6 +259,6 @@ const  CardHome = ({userData,userId}) => {
  
          </>
     );
-};
+});
 
 export default  CardHome;

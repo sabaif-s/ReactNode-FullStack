@@ -62,11 +62,11 @@ const  Intro = () => {
     const [uniqueIDNew,setUniqueID]=useState("");
      const {success}=FetchData(sendData,sendDataFormData,clickedCreate);
      const {isMobile,isDesktop,isTablet}=ScreenSize();
+     const [hideCreateIntro,setHideCreateIntro]=useState(false);
 
     const fileRef=useRef(null);
 
     const introDataW = useSelector((state) => state.intro);
-
     // If you want to memoize the selected data based on `introData`:
     const memoizedIntroData = useMemo(() => introDataW, [introDataW]);
     const audioRefCollection=["",firstMusicRef,secondMusicRef,thirdMusicRef,fourthMusicRef];
@@ -134,7 +134,7 @@ setTimeout(()=>{
 },19500);
 setTimeout(()=>{
      setAnimateCreate(true);
-},23000);
+},22000);
        
     },[]);
 
@@ -237,6 +237,7 @@ setTimeout(()=>{
     setTimeout(()=>{
           dispatch(HideIntroBack());
           setShowCreateComponent(true);
+          setHideCreateIntro(true);
     },5000);
    }
    const uploadClicked=()=>{
@@ -287,7 +288,7 @@ setTimeout(()=>{
         {
             !memoizedIntroData.hiddenIntroBack && (
                 <div className={` ${isMobile ? "":"flex justify-center items-center"} ${memoizedIntroData.animate_out_intro ? "animate-fadeOut relative w-full h-full z-20 bg-black bg-opacity-50":"absolute w-full h-full z-20"}`}>
-                       <img src={AssetImage[3]} className={` ${memoizedIntroData.hidden_center_image ? "hidden":""} ${memoizedIntroData.animate_in_centre_image ? "animate-fadeIn":""} ${memoizedIntroData.animate_center_image ? "animate-bounce":""} ${isMobile ? "w-1/2 h-1/2":"w-1/3 h-full object-cover rounded-full"} absolute ${isMobile ? "top-20 left-20":""} object-cover z-30`} alt="" />
+                       <img src={AssetImage[3]} className={` ${memoizedIntroData.hidden_center_image ? "hidden":""} ${memoizedIntroData.animate_in_centre_image ? "animate-fadeIn":""} ${memoizedIntroData.animate_center_image ? "animate-bounce":""} ${isMobile ? "w-1/2 h-1/2":"w-1/3 h-full object-cover rounded-full"} absolute ${isMobile ? "top-20 left-20":""} z-30`} alt="" />
         <img src={AssetImage[0]} className={` ${memoizedIntroData.hidden_two_ballon ? "hidden":""} ${memoizedIntroData.animate_in_two_ballon ? "animate-fadeIn":""}  ${memoizedIntroData.animate_two_ballon ? "animate-skew":""} ${isMobile ? "w-40 h-40 top-40 left-4":"w-80 h-80 left-60"} absolute  z-20`} alt="" />
         <img src={AssetImage[1]} className={` ${memoizedIntroData.hidden_two_ballon ? "hidden":""} ${memoizedIntroData.animate_in_two_ballon ? "animate-fadeIn":""} ${memoizedIntroData.animate_two_ballon ? "animate-skew":""} ${isMobile ? "w-40 h-40 top-40 right-10":"w-80 h-80 right-60"} absolute  z-20`} alt="" />
         <div className={` ${hideRotates ? "hidden":""} ${animateCreate ? "hidden":""} ${animateDownRotates ? "animate-slideDown":""} ${animateInRotates ? "animate-fadeIn":""} absolute w-full h-full left-0 right-0 z-40 flex justify-center items-center`} >
@@ -309,7 +310,7 @@ setTimeout(()=>{
         <div className={`${isMobile ? "w-1/2 h-1/2":"w-1/2 h-full"} relative flex justify-center items-center`} >
         <img 
      
-        src={AssetImage[1]} className={` ${isMobile ? "object-cover":""} w-full h-full`} alt="" />
+        src={AssetImage[1]} className={` ${isMobile ? "object-cover":""} ${hideCreateIntro ? "hidden":""} w-full h-full`} alt="" />
         <div 
            onClick={handleCreateClicked}
         className="absolute w-full h-full top-10 flex justify-center ">
@@ -326,13 +327,13 @@ setTimeout(()=>{
         {
             showCreateComponent && (
                 <>
-                  <div className={` ${isMobile ? "":""} w-full h-full  animate-fadeIn bg-red-300 absolute z-20 flex justify-center items-center`}>
+                  <div className={` ${isMobile ? "":""} w-full h-full  animate-fadeIn  absolute z-20 flex justify-center items-center`}>
                       <div className='w-full h-full relative flex justify-center items-center' >
                         <img src={
                           isMobile ? 
                           AssetImage[4]:backDesk 
                           } className={`absolute w-full h-full z-30 ${fadeOutIntro ? "animate-fadeOut":''}   ${descriptionShow && isMobile ? "blur-md":""} `} alt="" />
-                        <div className={` ${fadeOutNameAndImage ? "animate-fadeOut":""} absolute h-2/3  ${isMobile ?  " w-64 bg-black bg-opacity-50":"w-1/2"} z-40 flex flex-col gap-y-10 justify-center items-center p-10`} >
+                        <div className={` ${fadeOutNameAndImage ? "animate-fadeOut":""} absolute h-2/3  ${isMobile ?  " w-64 ":"w-1/2"} z-40 flex flex-col gap-y-10 justify-center items-center p-10`} >
                         <input
                 value={inputValue}
                 onChange={(e)=>{
@@ -340,12 +341,12 @@ setTimeout(()=>{
                 }}
                 type="text"
                 placeholder="Enter Your Friends Name"
-                className={`border-b border-gray-400 focus:border-blue-500 focus:outline-none ${isMobile ? "w-full":"w-2/3"} py-1 text-center bg-red-300 bg-opacity-0 ${isMobile ? "":"text-4xl"} ${fadeOutNameAndImage ? "animate-fadeOut":""} `}
+                className={`border-b border-gray-400 focus:border-blue-500 focus:outline-none font-italic text-blue-600 ${isMobile ? "w-full ":"w-2/3"} py-1 text-center bg-red-300 bg-opacity-0 ${isMobile ? "":"text-4xl"} ${fadeOutNameAndImage ? "animate-fadeOut":""} `}
             />
                 <div
                 onClick={uploadClicked}
                 className={` ${showProfileUpload ? "":"hidden"} ${fadeOutNameAndImage ? "animate-fadeOut":""} ${preview == null ? "h-20":""} w-full  relative flex justify-center items-center ${animateUp ? "animate-rotateCCW":""} ${animateDown ? "animate-rotateCW":""} `} >
-                      <span className={` ${preview != null ? "hidden":""} ${isMobile ? "":"text-2xl"} w-full text-center`}>
+                      <span className={` ${preview != null ? "hidden":""} ${isMobile ? "":"text-2xl"} w-full text-center text-green-600 font-bold`}>
                         {
                             animateDown ? "UPLOAD PICTURE":""
                         }
@@ -369,7 +370,7 @@ setTimeout(()=>{
                         </div>
                         {
                             descriptionShow && (
-                                <div className={` ${fadeOutDescriptionSection ? "animate-fadeOut":""} ${isMobile ? "p-4 inset-y-10":"px-80 py-10 inset-y-10 inset-x-20 left-0 flex justify-center"}  absolute w-full ${isMobile ? "bg-black bg-opacity-50":""} z-40 flex flex-col gap-y-6 justify-center items-center overflow-x-hidden`} >
+                                <div className={` ${fadeOutDescriptionSection ? "animate-fadeOut":""} ${isMobile ? "p-4 inset-y-10":"px-80 py-10 inset-y-10 inset-x-20 left-0 flex justify-center"}  absolute w-full ${isMobile ? "":""} z-40 flex flex-col gap-y-6 justify-center items-center overflow-x-hidden`} >
                                   <div className={` ${rotateBirthDayCard ? "animate-fadeIn":''} w-full h-40 flex flex-row justify-center items-center relative  `} >
                                         <span className={`text-center p-4 bg-black bg-opacity-50 ${rotateMessageBirthDay ? "animate-rotateCCW z-50":"opacity-0"} `} >Message Your Friend</span>
                                         <img src={birthdayCard} className={` ${rotateBirthDayCard ? "animate-rotateCW":"opacity-0"} ${isMobile ? "w-full h-40 top-0 left-0":"w-60 h-60 top-0 z-50"}  absolute `} alt="" />
@@ -403,7 +404,7 @@ setTimeout(()=>{
                         }
                         {
                             showSelectMusic && (
-                                <div className={` ${fadeOutIntro ? "animate-fadeOut z-10":"animate-fadeIn z-40"} ${isMobile ? "":"p-10"} ${isMobile ? "w-full inset-y-10":"w-1/2 inset-y-20 rounded-lg border-4 border-green-400"} bg-black flex flex-col justify-center items-center gap-y-6 bg-opacity-50  absolute`}>
+                                <div className={` ${fadeOutIntro ? "animate-fadeOut z-10":"animate-fadeIn z-40"} ${isMobile ? "":"p-10"} ${isMobile ? "w-full inset-0":"w-1/2 inset-y-20 rounded-lg border-4 border-green-400"} bg-black flex flex-col justify-center items-center gap-y-6 bg-opacity-50  absolute`}>
                                       <div className='w-full p-6 bg-gray-300 flex justify-center items-center' >
                                           <span className='text-white text-2xl' >SELECT MUSIC</span>
                                       </div>

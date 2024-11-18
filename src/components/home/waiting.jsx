@@ -87,7 +87,7 @@ const  Waiting = ({userId}) => {
       speed={0.5}
       className={` w-40 h-40`}
     />
-    <div className="absolute inset-0 flex items-center justify-center bg-red-300 bg-opacity-10 p-4 rounded-lg shadow-lg">
+    <div className="absolute inset-0 flex items-center justify-center bg-opacity-10 p-4 rounded-lg shadow-lg">
       <span className={` ${animateInGenerating ? "":"hidden"} ${animateRotateGenerating ? "animate-rotateCCW":""} ${animateInGenerating && !animateRotateGenerating ? "animate-fadeIn":""} text-2xl font-semibold text-white`}>Generating...</span>
     </div>
     <div className={` ${animateIn100 ? "bg-green-100":"" } absolute z-0 inset-0 flex items-center justify-center  p-4 rounded-lg shadow-lg `}>

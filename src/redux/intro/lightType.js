@@ -1,0 +1,2 @@
+export const HIDE_LIGHT="HIDE_LIGHT";
+export const SHOW_INTRO_CREATED="SHOW_INTRO_CREATED";
