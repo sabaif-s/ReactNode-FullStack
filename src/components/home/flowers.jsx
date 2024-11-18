@@ -7,24 +7,26 @@ import flowersTopRight from '../../assets/images/flowers3TopRight.png';
 import flowersTopLeft from '../../assets/images/flowers3TopRight.png';
 import flowersBottomRight from '../../assets/images/flowersBottomRight.png';
 import flowersBottomLeft from '../../assets/images/flowers3LeftBottom.png';
+import ScreenSize from './screen';
 import Sabk from '../../assets/images/sabk.jpeg';
-const  FlowersCard = () => {
+const  FlowersCard = ({image}) => {
            const [fadeInImage,setFadeInImage]=useState(false);
+           const {isDesktop,isDesktopLarge}=ScreenSize();
     useEffect(()=>{
          setTimeout(()=>{
              setFadeInImage(true);
          },2500);
     },[]);
     return (
-        <div className='w-full h-screen absolute  flex justify-start items-center overflow-y-hidden overflow-x-hidden' >
-               <div className='w-1/3 h-full flex flex-col justify-center items-center' >
-                   <img src={flowers1} className='w-full h-1/2 animate-slideUpToCurrent' alt="" />
-                   <img src={flowers1} className='w-full h-1/2' alt="" />
+        <div className='w-full h-screen absolute  flex justify-start items-center z-30 overflow-y-hidden overflow-x-hidden' >
+               <div className={`${isDesktop ? "w-2/3":""} ${isDesktopLarge ? "w-1/3":""} h-full flex flex-col justify-center items-center`} >
+                   <img src={flowers1} className='w-full h-1/2 animate-slideUpToCurrent ' alt="" />
+                   <img src={flowers1} className='w-full h-1/2 ' alt="" />
                </div>
                <div className='w-full h-full opacity-0'>
 
                </div>
-               <div className='w-2/3 h-full flex flex-col justify-end items-center relative'>
+               <div className={` w-2/3 h-full flex flex-col justify-end items-center relative`}>
                    <img src={flowers2} className='w-full h-full absolute z-10 animate-fadeIn' alt="" />
                    
                    <div className='w-full h-1/2 mb-10 relative flex justify-center items-center'>
@@ -41,7 +43,7 @@ const  FlowersCard = () => {
                          </div>
                    </div>
                    <div className={` ${fadeInImage ? "animate-fadeIn":"opacity-0"} absolute w-48 h-48 z-40`}>
-                     <img src={Sabk} className='w-full h-full rounded-full' alt="" />
+                     <img src={image} className='w-full h-full rounded-full' alt="" />
                    </div>
                    </div>
                 

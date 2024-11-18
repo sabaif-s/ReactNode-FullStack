@@ -293,8 +293,12 @@ setTimeout(()=>{
         <div className={` ${hideRotates ? "hidden":""} ${animateCreate ? "hidden":""} ${animateDownRotates ? "animate-slideDown":""} ${animateInRotates ? "animate-fadeIn":""} absolute w-full h-full left-0 right-0 z-40 flex justify-center items-center`} >
             <img src={AssetImage[7]} className={` ${animateImageRotate ? "animate-rotateCW":""} ${isMobile ? "w-full h-80 object-cover":"w-full h-full"} absolute z-10`} alt="" />
             <div className={` ${animateRotateText ? "w-full h-80":"w-80 h-80"} relative text-center `}>
-            <h1 className={` ${animateRotateText ? "animate-rotateDeg text-4xl":"transform rotate-45"} font-extrabold text-center text-purple-700 mt-10 absolute z-40 ${ animateRotateText ?  "w-full h-full left-0 top-0":"w-40 h-40  top-10 left-20"} text-break`}>
-            🎉 Craft the Perfect Birthday Surprise for Your Bestie! 🎂
+            <h1 className={` ${animateRotateText ? "animate-rotateDeg text-4xl":"transform rotate-45"} font-extrabold text-center text-purple-700 mt-10 absolute ${!isMobile ? "w-full h-full":""} ${isMobile && animateRotateText ? "w-full h-full":""} z-40 ${ animateRotateText ?  " left-0 top-0":"  top-10 left-20"} text-break`}>
+            🎉 Craft the Perfect Birthday
+             
+                <br />
+              
+             Surprise for Your Bestie! 🎂
         </h1>
             </div>
            
@@ -365,7 +369,7 @@ setTimeout(()=>{
                         </div>
                         {
                             descriptionShow && (
-                                <div className={` ${fadeOutDescriptionSection ? "animate-fadeOut":""} ${isMobile ? "p-4 inset-y-10":"px-80 py-10 inset-y-10 inset-x-20 left-0 flex justify-center"}  absolute w-full ${isMobile ? "bg-black bg-opacity-50":""} z-40 flex flex-col gap-y-6 justify-center items-center`} >
+                                <div className={` ${fadeOutDescriptionSection ? "animate-fadeOut":""} ${isMobile ? "p-4 inset-y-10":"px-80 py-10 inset-y-10 inset-x-20 left-0 flex justify-center"}  absolute w-full ${isMobile ? "bg-black bg-opacity-50":""} z-40 flex flex-col gap-y-6 justify-center items-center overflow-x-hidden`} >
                                   <div className={` ${rotateBirthDayCard ? "animate-fadeIn":''} w-full h-40 flex flex-row justify-center items-center relative  `} >
                                         <span className={`text-center p-4 bg-black bg-opacity-50 ${rotateMessageBirthDay ? "animate-rotateCCW z-50":"opacity-0"} `} >Message Your Friend</span>
                                         <img src={birthdayCard} className={` ${rotateBirthDayCard ? "animate-rotateCW":"opacity-0"} ${isMobile ? "w-full h-40 top-0 left-0":"w-60 h-60 top-0 z-50"}  absolute `} alt="" />
@@ -376,8 +380,8 @@ setTimeout(()=>{
                                        onChange={(e)=>{
                                         setDescriptionValue(e.target.value);
                                        }}
-                                        className={` ${rotateBirthDayCard ? "text-violet-600":"text-teal-400"} ${isMobile ? "w-full p-2 bg-opacity-10":"w-2/3 top-0 left-40 absolute p-8 bg-opacity-20"} h-full z-10 bg-red-300  font-bold font-mono text-2xl word-break`}  placeholder="ENTER MESSAGE" name="" id=""></textarea>
-                                        <img src={AssetImage[4]} className={`${isMobile ? "w-full opacity-80":"w-2/3"} h-full absolute  top-0 left-40  p-4`} alt="" />
+                                        className={` ${rotateBirthDayCard ? "text-violet-600":"text-teal-400"} ${isMobile ? "w-full p-2 bg-opacity-10 ":"w-2/3 top-0 left-40 absolute p-8 bg-opacity-20"} h-full z-10 bg-red-300  font-bold font-mono text-2xl word-break`}  placeholder="ENTER MESSAGE" name="" id=""></textarea>
+                                        <img src={AssetImage[4]} className={`${isMobile ? "w-full opacity-80 left-0":"w-2/3 left-40"} h-full absolute  top-0 p-4 `} alt="" />
                                   </div>
                                   <div className='w-full h-20  flex justify-center items-center cursor-pointer' >
                                          <img 

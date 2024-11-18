@@ -67,7 +67,7 @@ const  Waiting = ({userId}) => {
     },[]);
     return (
         <>
-        <div className='w-full h-screen relative flex justify-center items-center relative  overflow-y-hidden' >
+        <div className='w-full h-screen relative flex justify-center items-center relative overflow-x-hidden overflow-y-hidden' >
                 <img src={
                     isMobile ?
                     backImage:backDesk

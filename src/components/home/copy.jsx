@@ -29,18 +29,18 @@ const  Copy = ({userId,userIdPar}) => {
     },[copySuccess]);
     useEffect(()=>{
        
-         if(userIdPar != ""){
+         if(userIdPar != undefined){
           setLink(window.location.href);
         }
-        else if(userId != ""){
-          const linkNew=window.location.href+"/watch"+`${userId}`;
+        else if(userId != undefined){
+          const linkNew=window.location.href+"#/watch/"+`${userId}`;
           console.log("link ,",linkNew);
           setLink(linkNew);
         }
     },[userId,userIdPar]);
     return (
         <div
-        className='w-full h-screen absolute flex justify-center items-center'
+        className='w-full h-screen absolute flex justify-center items-center overflow-hidden'
         >
             <img src={
               isMobile ? 

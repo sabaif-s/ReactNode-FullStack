@@ -31,7 +31,7 @@ const  LightOnOff = ({showFunction}) => {
           const images=[bulbLight,bulbDim,bulbLight2,bulbLight4,imageBack,flowers];
     return (
         <>
-        <div className={`w-full h-screen  absolute bg-black bg-opacity-90 ${animateOutComponent ? "animate-fadeOut":""} ` } >
+        <div className={`w-full h-screen  absolute overflow-hidden bg-black bg-opacity-90 ${animateOutComponent ? "animate-fadeOut":""} ` } >
                     <img src={
                       isMobile ?
                       backImageBackGround:backDesk

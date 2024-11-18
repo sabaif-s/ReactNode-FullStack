@@ -17,6 +17,7 @@ import { useParams } from 'react-router-dom';
 import ReceiveBackEndData from '../../hooks/receiveBackEndData';
 import ScreenSize from './screen';
 import CardForShow from './cardForShow';
+import FlowersCard from './flowers';
 import Copy from './copy';
 const  CardHome = ({userData,userId}) => {
     const images=[profileBack,profileBack2,profileBack3,profileBack4];
@@ -65,10 +66,13 @@ const  CardHome = ({userData,userId}) => {
     useEffect(()=>{
            if(userId != ""){
             setUsersId(userId);
+            console.log("userID :",userId);
            }
            else if (userIdPar != ""){
+            console.log("users id : ",userIdPar);
             setUsersId(userIdPar);
            }
+           console.log(userIdPar,userId);
     },[userIdPar,userId]);
     useEffect(()=>{
         if(userDataShow.length > 0){
@@ -96,7 +100,11 @@ const  CardHome = ({userData,userId}) => {
                 setTimeout(()=>{
                        setAnimateOutCard(true);
                        setTimeout(()=>{
-                            setShowCopy(true);
+                        
+                    
+                          setShowCopy(true);
+                
+                            
                        },1500);
                 },20000);
                },5000);
@@ -154,7 +162,7 @@ const  CardHome = ({userData,userId}) => {
          <>
          {
             !showIntroCard && (
-                <div className={` ${showCopy ? "hidden":""} ${animateOutCard ? "animate-fadeOut":"animate-fadeIn"} ${isMobile ? "":""} w-full h-screen absolute `} >
+                <div className={` ${showCopy ? "hidden":""} ${animateOutCard ? "animate-fadeOut":"animate-fadeIn"} ${isMobile ? "":""} w-full h-screen absolute overflow-hidden`} >
                 <img src={
                     isMobile ? 
                     profileBack4:backDesk
@@ -188,6 +196,12 @@ const  CardHome = ({userData,userId}) => {
     </span>
                             </div>
                  </div>
+                 {
+                    !isMobile && (
+                        <FlowersCard image={imageUrl} />
+                    )
+                 }
+                
              </div> 
             )
          }
@@ -206,9 +220,21 @@ const  CardHome = ({userData,userId}) => {
                    onPlay={()=>{
                     setAnimateOutBack(true);
                     setTimeout(()=>{
-                      setAnimateOutCard(true);
+                        if(userIdPar != undefined){
+                            setAnimateOutCard(false);
+                        }
+                        else{
+                            setAnimateOutCard(true);
+                        }
+                    
                       setTimeout(()=>{
-                      setShowCopy(true);
+                        if(userIdPar != undefined){
+                            setShowCopy(false);
+                        }
+                        else{
+                            setShowCopy(true);
+                        }
+                      
                      
                       },2500);
                     },20000);
