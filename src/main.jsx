@@ -11,6 +11,7 @@ import Waiting from './components/home/waiting.jsx';
 import CardHome from './components/home/cardHome.jsx';
 import CardForShow from './components/home/cardForShow.jsx';
 import FlowersCard from './components/home/flowers.jsx';
+import OpenBookAnimation from './components/home/openBookAnimation.jsx';
 const basename = '/ReactNode-FullStack';
 
 createRoot(document.getElementById('root')).render(
@@ -25,6 +26,7 @@ createRoot(document.getElementById('root')).render(
         <Route path='/watch/:userIdPar' element={<CardHome  userId={""}userData={[]} />} ></Route>
         <Route path='/cardForShow' element={<CardForShow/>} ></Route>
         <Route path='/flowers' element={<FlowersCard/>} ></Route>
+        <Route path='/openBookAnimation' element={<OpenBookAnimation/>} ></Route>
       </Routes>
     </Router>
     </Provider>
