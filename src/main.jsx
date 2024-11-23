@@ -51,7 +51,12 @@ createRoot(document.getElementById('root')).render(
           } ></Route>
         <Route path='/waiting' element={<Waiting/>} ></Route>
         <Route path='/copy' element={<Copy/>} ></Route>
-        <Route path='/watch/:userIdPar' element={<CardHome  userId={""}userData={[]} />} ></Route>
+        <Route path='/watch/:userIdPar' element={  
+           <Suspense fallback={<Spinner/>} >
+          <CardHome  userId={""}userData={[]} /> 
+          </Suspense>
+          }>
+          </Route>
 
         <Route path='/cardForShow' element={
           <Suspense fallback={<div>Loading..</div>}>

@@ -311,7 +311,7 @@ setTimeout(()=>{
     return (
        <>
        <div className={` ${memoizedIntroData.hiddenIntroBack ? "":""}  ${isMobile ? "":'flex justify-center items-center'} ${showIntro ? "":""}  w-full h-screen  relative overflow-hidden`}>
-        <div className={`w-full h-full absolute object-cover z-0 `} >
+        <div className={`w-full h-full absolute object-cover z-0  `} >
                   <img src={smallBack2} className='w-full h-full ' alt="" />
         </div>
         <img 
@@ -361,7 +361,7 @@ setTimeout(()=>{
             showCreateComponent && (
                 <>
                   <div className={` ${isMobile ? "":""} w-full h-full  animate-fadeIn  absolute z-20 flex justify-center items-center`}>
-                    <div className='w-full h-full absolute z-10' >
+                    <div className={`w-full h-full absolute z-10 ${showWaiting ? "hidden":""}`} >
                        <img src={lowQualityDesc} className='w-full h-full object-cover' alt="" />
                     </div>
                       <div className='w-full h-full relative flex justify-center items-center' >
