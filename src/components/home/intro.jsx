@@ -23,6 +23,7 @@ import backDesk from '../../assets/images/backDeskImage.jpg';
  
 import {AnimateInIntroBack,AnimateOutIntro,HideIntroBack,AnimateBallon,AnimateCenterImage,AnimateInBallon,AnimateInCentreImage} from '../../redux/intro/introAction'
 import Alert from './alert';
+import Spinner from './Spinner';
 const  Intro = ({loaded,onLoad}) => {
     const {AssetImage}=AssetImages();
     const [imageRendered,setImageRendered]=useState(false);
@@ -628,9 +629,7 @@ setTimeout(()=>{
                         }
                         {
                           showWaiting && (
-                            <Suspense fallback={<div> LOADING </div>} >
-
-                           
+                            <Suspense fallback={<Spinner/>} >     
                             <Waiting userId={uniqueIDNew} />
                             </Suspense>
                           )
@@ -664,6 +663,7 @@ setTimeout(()=>{
         showSelectMusic && (
           <>
            <audio
+            preload="auto"
              onCanPlayThrough={()=>{
               setRenderAllSelectMusic(true);
               console.log("can play first");
@@ -681,6 +681,7 @@ setTimeout(()=>{
          }}
         src={firstMusic} ></audio>
         <audio
+         preload="auto"
          onCanPlayThrough={()=>{
           setRenderAllSelectMusic(true);
           console.log("can play second");
@@ -700,6 +701,7 @@ setTimeout(()=>{
         ref={secondMusicRef}
         src={secondMusic}></audio>
         <audio
+         preload="auto"
          onCanPlayThrough={()=>{
           setRenderAllSelectMusic(true);
           console.log("can play Third");
@@ -718,6 +720,7 @@ setTimeout(()=>{
         ref={thirdMusicRef}
         src={thirdMusic}></audio>
         <audio
+         preload="auto"
          onCanPlayThrough={()=>{
           setRenderAllSelectMusic(true);
           console.log("can play fourth");
