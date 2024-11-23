@@ -506,7 +506,7 @@ setTimeout(()=>{
                                             src={pause} ref={pauseImageRef} className='hidden' alt="" />
                                           </div>
                                           <div className='' >
-                                             <span className='text-green-300 '>SAMI BERHANE</span>
+                                             <span className='text-green-300 '>English</span>
                                           </div>
                                           <div className='w-20 h-20 '>
                                             
@@ -539,7 +539,7 @@ setTimeout(()=>{
                                             <img src={uploadImage} className='w-full h-full rounded-full' alt="" />
                                           </div>
                                           <div className='' >
-                                             <span className='text-green-300 '>HELEN MELESE</span>
+                                             <span className='text-green-300 '>Amharic</span>
                                           </div>
                                           <div className='w-20 h-20 '>
                                             
@@ -570,7 +570,7 @@ setTimeout(()=>{
                                             <img src={uploadImage} className='w-full h-full rounded-full' alt="" />
                                           </div>
                                           <div className='' >
-                                             <span className='text-green-300 '>HELEN MELESE</span>
+                                             <span className='text-green-300 '>Oromic</span>
                                           </div>
                                           <div className='w-20 h-20 '>
                                             
@@ -599,7 +599,7 @@ setTimeout(()=>{
                                             <img src={uploadImage} className='w-full h-full rounded-full' alt="" />
                                           </div>
                                           <div className='' >
-                                             <span className='text-green-300 '>SAMI BERHANE</span>
+                                             <span className='text-green-300 '>Tigrigna</span>
                                           </div>
                                           <div className='w-20 h-20 '>
                                             
