@@ -81,21 +81,21 @@ const  Intro = ({loaded,onLoad}) => {
     useEffect(()=>{
         console.log(memoizedIntroData);
     },[memoizedIntroData]);
-    // useEffect(() => {
-    //   // Simulate loading time
-    //   const timer = setTimeout(() => {
-    //     if(loaded){
+    useEffect(() => {
+      // Simulate loading time
+      const timer = setTimeout(() => {
+        if(loaded){
 
-    //     }
-    //     else{
-    //       onLoad(); 
-    //     }
-    //     // Call the onLoad function passed as a prop
-    //   }, 1000); // Simulate a 1-second loading time
+        }
+        else{
+          onLoad(); 
+        }
+        // Call the onLoad function passed as a prop
+      }, 1000); // Simulate a 1-second loading time
   
-    //   // Clean up the timer on component unmount
-    //   return () => clearTimeout(timer);
-    // }, [loaded]);
+      // Clean up the timer on component unmount
+      return () => clearTimeout(timer);
+    }, [loaded]);
     useEffect(()=>{
       if(showAlert){
         setTimeout(()=>{

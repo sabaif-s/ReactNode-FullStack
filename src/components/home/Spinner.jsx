@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import "tw-elements-react/dist/css/tw-elements-react.min.css";
-import backMobile from '../../assets/images/15365514_5540142.jpg';
-import backDesk from '../../assets/images/100.png';
+import backMobile from '../../assets/images/92990.jpg';
+import backDesk from '../../assets/images/bookCover.jpg';
 import ScreenSize from './screen';
 export default function Spinner() {
     const [deviceMobile,setDevice]=useState(false);
