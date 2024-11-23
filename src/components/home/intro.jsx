@@ -69,6 +69,13 @@ const  Intro = ({loaded,onLoad}) => {
      const [hideCreateIntro,setHideCreateIntro]=useState(false);
      const [showIntro,setShowIntro]=useState(false);
      const [loadedFullyDesc,setLoadedFullyDesc]=useState(false);
+     const [renderAllSelectMusic,setRenderAllSelectMusic]=useState(false);
+     const [renderPauseImage,setRenderPauseImage]=useState(false);
+     const [renderPlayImage,setRenderPlayImage]=useState(false);
+     const [renderUploadImage,setRenderUploadImage]=useState(false);
+     const playImageRef=useRef(null);
+     const pauseImageRef=useRef(null);
+     const uploadImageRef=useRef(null);
 
     const fileRef=useRef(null);
 
@@ -81,6 +88,15 @@ const  Intro = ({loaded,onLoad}) => {
     useEffect(()=>{
         console.log(memoizedIntroData);
     },[memoizedIntroData]);
+     
+    useEffect(()=>{
+            if(renderPauseImage && renderPlayImage && renderUploadImage){
+              firstMusicRef.current.load();
+              secondMusicRef.current.load();
+              thirdMusicRef.current.load();
+              fourthMusicRef.current.load();
+            }
+    },[renderPauseImage,renderPlayImage,renderUploadImage]);
     useEffect(() => {
       // Simulate loading time
       const timer = setTimeout(() => {
@@ -244,6 +260,7 @@ setTimeout(()=>{
                 },3000);
             }
      },[fadeOutDescriptionSection]);
+     
      useEffect(()=>{
              if(selectedMusic != 0){
                 setShowCreateButton(true);
@@ -444,7 +461,7 @@ setTimeout(()=>{
                         }
                         {
                             showSelectMusic && (
-                                <div className={` ${fadeOutIntro ? "animate-fadeOut z-10":"animate-fadeIn z-40"} ${isMobile ? "":"p-10"} ${isMobile ? "w-full inset-0":"w-1/2 inset-y-20 rounded-lg border-4 border-green-400"} bg-black flex flex-col justify-center items-center gap-y-6 bg-opacity-50  absolute`}>
+                                <div className={` ${renderAllSelectMusic ? "animate-fadeIn":"hidden"} ${fadeOutIntro ? "animate-fadeOut z-10":"animate-fadeIn z-40"} ${isMobile ? "":"p-10"} ${isMobile ? "w-full inset-0":"w-1/2 inset-y-20 rounded-lg border-4 border-green-400"} bg-black flex flex-col justify-center items-center gap-y-6 bg-opacity-50  absolute`}>
                                       <div className='w-full p-6 bg-gray-300 flex justify-center items-center' >
                                           <span className='text-white text-2xl' >SELECT MUSIC</span>
                                       </div>
@@ -468,13 +485,33 @@ setTimeout(()=>{
                                       className={` ${selectedMusic == 1 ? "animate-bounce":""} cursor-pointer w-full h-20  flex justify-around items-center`}>
                                           <div className='w-20 h-20 rounded-full'>
                                             <img src={uploadImage} className='w-full h-full rounded-full' alt="" />
+                                            <img
+                                            onLoad={()=>{
+                                              setRenderUploadImage(true);
+                                               
+                                            }}
+                                            src={uploadImage} ref={uploadImageRef} className='hidden' alt="" />
+                                            <img
+                                               onLoad={()=>{
+                                                setRenderPlayImage(true);
+                                                 
+                                              }}
+                                            src={play} ref={playImageRef}  className="hidden" alt="" />
+                                            <img
+                                              onLoad={()=>{
+                                                setRenderPauseImage(true);
+                                                
+                                              }}
+                                            src={pause} ref={pauseImageRef} className='hidden' alt="" />
                                           </div>
                                           <div className='' >
                                              <span className='text-green-300 '>SAMI BERHANE</span>
                                           </div>
                                           <div className='w-20 h-20 '>
                                             
-                                                  <img src={
+                                                  <img
+                                                  
+                                                  src={
                                                     selectedMusic == 1 ? pause:play
                                                     
                                                     } className='w-full h-full' alt="" />
@@ -627,6 +664,10 @@ setTimeout(()=>{
         showSelectMusic && (
           <>
            <audio
+             onCanPlayThrough={()=>{
+              setRenderAllSelectMusic(true);
+              console.log("can play first");
+             }}
          ref={firstMusicRef}
          onPlay={()=>{
             if(secondMusicRef.current && thirdMusicRef.current){
@@ -640,6 +681,10 @@ setTimeout(()=>{
          }}
         src={firstMusic} ></audio>
         <audio
+         onCanPlayThrough={()=>{
+          setRenderAllSelectMusic(true);
+          console.log("can play second");
+         }}
           onPlay={()=>{
             if(firstMusicRef.current && thirdMusicRef.current && fourthMusicRef.current){
                 firstMusicRef.current.pause();
@@ -655,6 +700,10 @@ setTimeout(()=>{
         ref={secondMusicRef}
         src={secondMusic}></audio>
         <audio
+         onCanPlayThrough={()=>{
+          setRenderAllSelectMusic(true);
+          console.log("can play Third");
+         }}
           onPlay={()=>{
             if(secondMusicRef.current && firstMusicRef.current && fourthMusicRef.current){
                 secondMusicRef.current.pause();
@@ -669,6 +718,10 @@ setTimeout(()=>{
         ref={thirdMusicRef}
         src={thirdMusic}></audio>
         <audio
+         onCanPlayThrough={()=>{
+          setRenderAllSelectMusic(true);
+          console.log("can play fourth");
+         }}
          onPlay={()=>{
             if(secondMusicRef.current && firstMusicRef.current && thirdMusicRef){
                 secondMusicRef.current.pause();
