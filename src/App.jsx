@@ -9,15 +9,22 @@ const Intro =lazy(()=>import('./components/home/intro'));
  
 
 function App() {
-   
+   const [introLoaded,setIntroLoaded]=useState(false);
+
+   function loaded(){
+    setIntroLoaded(true);
+   }
 
   return (
     <>
-    <Suspense fallback={<Spinner/>}>
-    <Intro />
-    </Suspense>
-   
-    </>
+    {introLoaded ? (
+      <Intro loaded={introLoaded} onLoad={loaded} />
+    ) : (
+      <Suspense fallback={<Spinner />}>
+        <Intro onLoad={loaded} loaded={introLoaded} />
+      </Suspense>
+    )}
+  </>
   )
 }
 

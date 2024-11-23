@@ -10,7 +10,9 @@ import play from '../../assets/images/Play.png';
 import firstMusic from '../../assets/audio/englishMusic.m4a';
 import secondMusic from '../../assets/audio/henok abebe.m4a';
 import thirdMusic from '../../assets/audio/oromicMusic.m4a';
+import smallBack2 from '../../assets/images/smallBack2.jpg';
 import fourthMusic from '../../assets/audio/samiBerhane.m4a';
+import lowQualityDesc from '../../assets/images/smallBackDesc2.jpg';
 import FetchData from '../../hooks/fetchData';
 // const ScreenSize=lazy(()=> import('./screen'));
 import ScreenSize from './screen';
@@ -21,7 +23,7 @@ import backDesk from '../../assets/images/backDeskImage.jpg';
  
 import {AnimateInIntroBack,AnimateOutIntro,HideIntroBack,AnimateBallon,AnimateCenterImage,AnimateInBallon,AnimateInCentreImage} from '../../redux/intro/introAction'
 import Alert from './alert';
-const  Intro = () => {
+const  Intro = ({loaded,onLoad}) => {
     const {AssetImage}=AssetImages();
     const [imageRendered,setImageRendered]=useState(false);
     const [animateImageRotate,setAnimateRotateImage]=useState(false);
@@ -65,6 +67,8 @@ const  Intro = () => {
      const {success}=FetchData(sendData,sendDataFormData,clickedCreate);
      const {isMobile,isDesktop,isTablet}=ScreenSize();
      const [hideCreateIntro,setHideCreateIntro]=useState(false);
+     const [showIntro,setShowIntro]=useState(false);
+     const [loadedFullyDesc,setLoadedFullyDesc]=useState(false);
 
     const fileRef=useRef(null);
 
@@ -77,6 +81,21 @@ const  Intro = () => {
     useEffect(()=>{
         console.log(memoizedIntroData);
     },[memoizedIntroData]);
+    // useEffect(() => {
+    //   // Simulate loading time
+    //   const timer = setTimeout(() => {
+    //     if(loaded){
+
+    //     }
+    //     else{
+    //       onLoad(); 
+    //     }
+    //     // Call the onLoad function passed as a prop
+    //   }, 1000); // Simulate a 1-second loading time
+  
+    //   // Clean up the timer on component unmount
+    //   return () => clearTimeout(timer);
+    // }, [loaded]);
     useEffect(()=>{
       if(showAlert){
         setTimeout(()=>{
@@ -260,6 +279,12 @@ setTimeout(()=>{
       setShowAlert(true);
     }
   };
+  const backIntroLoaded=()=>{
+    if(!loaded){
+      onLoad();
+    }
+    setShowIntro(true);
+  }
   const createFormData=()=>{
   const uniqueID=createUniqueId(inputValue);
   setUniqueID(uniqueID);
@@ -285,8 +310,14 @@ setTimeout(()=>{
   }
     return (
        <>
-       <div className={` ${memoizedIntroData.hiddenIntroBack ? "":""}  ${isMobile ? "":'flex justify-center items-center'}  w-full h-screen  relative overflow-hidden`}>
-        <img src={AssetImage[2]} className={`w-full h-full absolute object-cover z-10 ${memoizedIntroData.animate_in_intro_back ? "animate-fadeIn":""} `} alt="" />
+       <div className={` ${memoizedIntroData.hiddenIntroBack ? "":""}  ${isMobile ? "":'flex justify-center items-center'} ${showIntro ? "":""}  w-full h-screen  relative overflow-hidden`}>
+        <div className={`w-full h-full absolute object-cover z-0 `} >
+                  <img src={smallBack2} className='w-full h-full ' alt="" />
+        </div>
+        <img 
+        onLoad={backIntroLoaded}
+        src={AssetImage[2]} className={`w-full h-full absolute object-cover z-10 ${memoizedIntroData.animate_in_intro_back ? "":""} `} alt="" />
+         
         {
             !memoizedIntroData.hiddenIntroBack && (
                 <div className={` ${isMobile ? "":"flex justify-center items-center"} ${memoizedIntroData.animate_out_intro ? "animate-fadeOut relative w-full h-full z-20 bg-black bg-opacity-50":"absolute w-full h-full z-20"}`}>
@@ -330,11 +361,18 @@ setTimeout(()=>{
             showCreateComponent && (
                 <>
                   <div className={` ${isMobile ? "":""} w-full h-full  animate-fadeIn  absolute z-20 flex justify-center items-center`}>
+                    <div className='w-full h-full absolute z-10' >
+                       <img src={lowQualityDesc} className='w-full h-full object-cover' alt="" />
+                    </div>
                       <div className='w-full h-full relative flex justify-center items-center' >
-                        <img src={
+                        <img
+                        onLoad={()=>{
+                          setLoadedFullyDesc(true);
+                        }}
+                        src={
                           isMobile ? 
                           AssetImage[4]:backDesk 
-                          } className={`absolute w-full h-full z-30 ${fadeOutIntro ? "animate-fadeOut":''}   ${descriptionShow && isMobile ? "blur-md":""} `} alt="" />
+                          } className={`absolute w-full h-full z-30 ${loadedFullyDesc ? "animate-fadeIn":"hidden"} ${fadeOutIntro ? "animate-fadeOut":''}   ${descriptionShow && isMobile ? "blur-md":""} `} alt="" />
                         <div className={` ${fadeOutNameAndImage ? "animate-fadeOut":""} absolute h-2/3  ${isMobile ?  " w-64 ":"w-1/2"} z-40 flex flex-col gap-y-10 justify-center items-center p-10`} >
                         <input
                 value={inputValue}
