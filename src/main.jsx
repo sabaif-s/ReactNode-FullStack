@@ -1,14 +1,18 @@
-import { StrictMode,Suspense,lazy } from 'react';
+import { StrictMode,Suspense,lazy,useEffect,useState} from 'react';
 import { HashRouter as Router, Routes, Route } from 'react-router-dom';
 import { createRoot } from 'react-dom/client';
 import {Provider} from 'react-redux'
 import store  from './store/store.js';
+import Spinner from './components/home/Spinner.jsx';
 import './index.css';
-import App from './App.jsx';
-import CreatedCard from './components/home/createdCard.jsx';
-import Copy from './components/home/copy.jsx';
-import Waiting from './components/home/waiting.jsx';
-import CardHome from './components/home/cardHome.jsx';
+const App =lazy(()=>import('./App.jsx'));
+// import App from './App.jsx';
+ const Copy=lazy(()=> import('./components/home/copy.jsx'));
+// import Copy from './components/home/copy.jsx';
+// import Waiting from './components/home/waiting.jsx';
+const Waiting=lazy(()=> import('./components/home/waiting.jsx'));
+// import CardHome from './components/home/cardHome.jsx';
+const CardHome=lazy(()=> import('./components/home/cardHome.jsx'));
 const CardForShow=lazy(()=>
   import('./components/home/cardForShow.jsx')
 )
@@ -16,8 +20,10 @@ const CreatedCard=lazy(()=>
   import('./components/home/createdCard.jsx')
 )
 // import CardForShow from './components/home/cardForShow.jsx';
-import FlowersCard from './components/home/flowers.jsx';
-import OpenBookAnimation from './components/home/openBookAnimation.jsx';
+// import FlowersCard from './components/home/flowers.jsx';
+const FlowersCard=lazy(()=> import('./components/home/flowers.jsx'));
+const OpenBookAnimation=lazy(()=> import('./components/home/openBookAnimation.jsx'));
+// import OpenBookAnimation from './components/home/openBookAnimation.jsx';
 const basename = '/ReactNode-FullStack';
 
 createRoot(document.getElementById('root')).render(
@@ -25,7 +31,19 @@ createRoot(document.getElementById('root')).render(
     <Provider store={store} >
     <Router >
       <Routes>
-        <Route path="/" element={<App />} />
+      <Route 
+  path="/" 
+  element={  
+    <Suspense fallback={<Spinner/>}>
+      <App />
+    </Suspense>
+  } 
+/>
+<Route path='/spinner' element={
+  <Spinner/>
+}>
+
+</Route>
         <Route path='/card'element={
           <Suspense fallback={<div>Loading..</div>}>
           <CreatedCard/>

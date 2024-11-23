@@ -1,5 +1,5 @@
 import React from 'react';
-import { useEffect,useState,useMemo,useRef } from 'react';
+import { useEffect,useState,useMemo,useRef,Suspense,lazy} from 'react';
 import AssetImages from '../../assets/assetImages';
 import { useSelector,useDispatch } from 'react-redux';
 import uploadImage from '../../assets/images/14666.jpg';
@@ -12,11 +12,13 @@ import secondMusic from '../../assets/audio/henok abebe.m4a';
 import thirdMusic from '../../assets/audio/oromicMusic.m4a';
 import fourthMusic from '../../assets/audio/samiBerhane.m4a';
 import FetchData from '../../hooks/fetchData';
-import CreatedCard from './createdCard';
+// const ScreenSize=lazy(()=> import('./screen'));
 import ScreenSize from './screen';
-import Waiting from './waiting';
+const Waiting=lazy(()=> import('./waiting'));
+
+ 
 import backDesk from '../../assets/images/backDeskImage.jpg';
-import Copy from './copy';
+ 
 import {AnimateInIntroBack,AnimateOutIntro,HideIntroBack,AnimateBallon,AnimateCenterImage,AnimateInBallon,AnimateInCentreImage} from '../../redux/intro/introAction'
 import Alert from './alert';
 const  Intro = () => {
@@ -551,7 +553,11 @@ setTimeout(()=>{
                         }
                         {
                           showWaiting && (
+                            <Suspense fallback={<div> LOADING </div>} >
+
+                           
                             <Waiting userId={uniqueIDNew} />
+                            </Suspense>
                           )
                         }
                         
@@ -579,7 +585,10 @@ setTimeout(()=>{
             })
         )
        } */}
-        <audio
+       {
+        showSelectMusic && (
+          <>
+           <audio
          ref={firstMusicRef}
          onPlay={()=>{
             if(secondMusicRef.current && thirdMusicRef.current){
@@ -640,6 +649,10 @@ setTimeout(()=>{
                 <Alert message={alertMessage} />
             )
         }
+          </>
+        )
+       }
+       
         
        </div>
 

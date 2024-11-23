@@ -1,7 +1,10 @@
-import { useState,React,useEffect } from 'react'
+import { useState,React,useEffect,Suspense,lazy } from 'react'
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import Spinner from './components/home/Spinner';
  
-import Intro from './components/home/intro';
+
+const Intro =lazy(()=>import('./components/home/intro'));
+// import Intro from './components/home/intro';
  
  
 
@@ -10,7 +13,10 @@ function App() {
 
   return (
     <>
-    <Intro/>
+    <Suspense fallback={<Spinner/>}>
+    <Intro />
+    </Suspense>
+   
     </>
   )
 }
