@@ -5,6 +5,8 @@ import percent25 from '../../assets/images/25.png';
 import percent100 from '../../assets/images/100.png';
 import backImage from '../../assets/images/92990.jpg';
 import backDesk from '../../assets/images/backDeskImage.jpg';
+import backImageSmall from '../../assets/images/92990small.jpg';
+import backDeskSmall from '../../assets/images/backDeskImageSmall.jpg';
 import ScreenSize from './screen';
 import { DotLottieReact } from '@lottiefiles/dotlottie-react';
 import CreatedCard from './createdCard';
@@ -21,6 +23,7 @@ const  Waiting = ({userId}) => {
     const [animateOutWaiting,setAnimateOutWaiting]=useState(false);
     const [animateInBall,setAnimateInBall]=useState(false);
     const [hideWaiting,setHideWaiting]=useState(false);
+    const [hideSmall,setHideSmall]=useState(false);
     const {isDesktop,isMobile,isTablet}=ScreenSize();
     useEffect(()=>{
      setTimeout(()=>{
@@ -68,7 +71,17 @@ const  Waiting = ({userId}) => {
     return (
         <>
         <div className='w-full h-screen relative flex justify-center items-center relative overflow-x-hidden overflow-y-hidden' >
-                <img src={
+            <div className={` ${hideSmall ? "hidden":""} w-full h-full absolute z-10 `}>
+                 <img  src={
+                    isMobile ?
+                    backImageSmall:backDeskSmall
+                    } className='w-full h-full' alt="" />
+            </div>
+                <img 
+                onLoad={()=>{
+                    setHideSmall(true);
+                }}
+                src={
                     isMobile ?
                     backImage:backDesk
                     } className={` ${animateOutWaiting ? "animate-fadeOut":""} ${hideWaiting ? "hidden":" animate-fadeIn"} w-full h-full absolute z-0`} alt="" />
