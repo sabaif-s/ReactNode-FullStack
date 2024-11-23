@@ -339,7 +339,8 @@ setTimeout(()=>{
         {
             !memoizedIntroData.hiddenIntroBack && (
                 <div className={` ${isMobile ? "":"flex justify-center items-center"} ${memoizedIntroData.animate_out_intro ? "animate-fadeOut relative w-full h-full z-20 bg-black bg-opacity-50":"absolute w-full h-full z-20"}`}>
-                       <img src={AssetImage[3]} className={` ${memoizedIntroData.hidden_center_image ? "hidden":""} ${memoizedIntroData.animate_in_centre_image ? "animate-fadeIn":""} ${memoizedIntroData.animate_center_image ? "animate-bounce":""} ${isMobile ? "w-1/2 h-1/2":"w-1/3 h-full object-cover rounded-full"} absolute ${isMobile ? "top-20 left-20":""} z-30`} alt="" />
+                       <img
+                       src={AssetImage[3]} className={` ${memoizedIntroData.hidden_center_image ? "hidden":""} ${memoizedIntroData.animate_in_centre_image ? "animate-fadeIn":""} ${memoizedIntroData.animate_center_image ? "animate-bounce":""} ${isMobile ? "w-1/2 h-1/2":"w-1/3 h-full object-cover rounded-full"} absolute ${isMobile ? "top-20 left-20":""} z-30`} alt="" />
         <img src={AssetImage[0]} className={` ${memoizedIntroData.hidden_two_ballon ? "hidden":""} ${memoizedIntroData.animate_in_two_ballon ? "animate-fadeIn":""}  ${memoizedIntroData.animate_two_ballon ? "animate-skew":""} ${isMobile ? "w-40 h-40 top-40 left-4":"w-80 h-80 left-60"} absolute  z-20`} alt="" />
         <img src={AssetImage[1]} className={` ${memoizedIntroData.hidden_two_ballon ? "hidden":""} ${memoizedIntroData.animate_in_two_ballon ? "animate-fadeIn":""} ${memoizedIntroData.animate_two_ballon ? "animate-skew":""} ${isMobile ? "w-40 h-40 top-40 right-10":"w-80 h-80 right-60"} absolute  z-20`} alt="" />
         <div className={` ${hideRotates ? "hidden":""} ${animateCreate ? "hidden":""} ${animateDownRotates ? "animate-slideDown":""} ${animateInRotates ? "animate-fadeIn":""} absolute w-full h-full left-0 right-0 z-40 flex justify-center items-center`} >

@@ -1,30 +1,53 @@
 import React, { useEffect, useState } from 'react';
 import "tw-elements-react/dist/css/tw-elements-react.min.css";
-import backMobile from '../../assets/images/92990.jpg';
-import backDesk from '../../assets/images/bookCover.jpg';
+ 
+import smallBackMobile from '../../assets/images/92990small.jpg';
+import smallBackDesk from '../../assets/images/backDeskImageSmall.jpg';
 import ScreenSize from './screen';
 export default function Spinner() {
     const [deviceMobile,setDevice]=useState(false);
     const [imageUrl,setImageUrl]=useState(null);
     const [readyShow,setReadyShow]=useState(false);
+    const [backDesk,setBackDesk]=useState(null);
+    const [backMobile,setBackMobile]=useState(null);
     const {isMobile}=ScreenSize();
     useEffect(()=>{
-         
-       if(isMobile){
-        setImageUrl(backMobile);
-       }
-       else {
-        setImageUrl(backDesk);
-       }
-    },[isMobile])
+         function setImageMobile(){
+          
+            setImageUrl(backMobile);
+         }
+         function setImageDesk(){
+          setImageUrl(backDesk);
+         }
+         if(isMobile && backMobile != null){
+          setImageMobile();
+         }
+         if(!isMobile && backDesk != null){
+          setImageDesk();
+         }
+      
+    },[isMobile,backMobile,backDesk]);
+    useEffect(() => {
+      const loadImages = async () => {
+        const mobileImage = await import('../../assets/images/92990.jpg');
+        const deskImage = await import('../../assets/images/bookCover.jpg');
+        setBackMobile(mobileImage.default);
+        setBackDesk(deskImage.default);
+      };
+      loadImages();
+    }, [isMobile]);
     function handleImageLoaded(){
         setReadyShow(true);
+        
         console.log("image loaded");
     }
     
   return (
    
-    <div className={`w-full h-screen flex justify-center items-center relative ${readyShow ? "animate-fade-in":"hidden"} `}>
+    <div className={`w-full h-screen flex justify-center items-center relative ${true ? "animate-fade-in":"hidden"} `}>
+      <div className={` ${readyShow ? "hidden":""} w-full h-full absolute z-20`} >
+               <img src={smallBackMobile} className='w-full h-full' alt="" />
+      </div>
         {
                 isMobile && (
                     <img
