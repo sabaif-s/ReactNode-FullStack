@@ -1,24 +1,52 @@
 import React from 'react';
 import { useEffect,useState } from 'react';
-import image1 from './images/10252815.png';
-import image2 from './images/170670446_10252808.png';
-import image3 from './images/22451856_SL-120920-38660-47.jpg';
-import image4 from './images/360524525_11429953.png';
-import image5 from './images/9083415.jpg';
-import image6 from './images/rb_26773.png';
-import image7 from './images/rb_30921.png';
-import image8 from './images/rb_32582.png';
 
-const  AssetImages = () => {
+import image1Small from './images/resized_10252815.png';
+import image2small from './images/resized_170670446_10252808.png';
+
+import image3Small from './images/resized_22451856_SL-120920-38660-47.jpg';
+
+import image4Small from './images/resized_360524525_11429953.png';
+
+import image5Small from './images/resized_9083415.jpg';
+
+import image6Small from './images/resized_rb_26773.png';
+
+import image7Small from './images/resized_rb_30921.png';
+import image8Small from './images/resized_rb_30921.png';
+
+
+const  AssetImages = (easy,hard) => {
          const [AssetImage,setAssetImage]=useState([]);
-    const AssetImageArray=[image1,image2,image3,image4,image5,image6,image7,image8]
-
+         const [fetchedHard,setFetchedHard]=useState(false);
+   
+     const AssetImageArrayEasy=[image1Small,image2small,image3Small,image4Small,image5Small,image6Small,image7Small,image8Small];
     useEffect(()=>{
-       if(AssetImageArray.length > 0){
-        setAssetImage(AssetImageArray);
+       
+       const loadHighImages=async ()=>{
+           const image1=await import('./images/10252815.png');
+           const image2 =await import ('./images/170670446_10252808.png');
+           const image3 =await import('./images/22451856_SL-120920-38660-47.jpg');
+           const image4=await import('./images/360524525_11429953.png');
+           const image5=await import('./images/9083415.jpg');
+           const image6=await import('./images/rb_30921.png');
+           const image7=await import('./images/rb_30921.png');
+           const image8=await import('./images/rb_32582.png');
+           const AssetImageArray=[image1.default,image2.default,image3.default,image4.default,image5.default,image6.default,image7.default,image8.default];
+           setAssetImage(AssetImageArray);
+           setFetchedHard(true);
        }
-    },[]);
-     return {AssetImage}
+       if(hard){
+         loadHighImages();
+       }
+    },[hard]);
+    useEffect(()=>{
+         if(easy && AssetImageArrayEasy.length > 0){
+             setAssetImage(AssetImageArrayEasy);
+             setFetchedHard(false);
+         }
+    },[easy]);
+     return {AssetImage,fetchedHard}
 };
 
 export default  AssetImages;

@@ -3,10 +3,14 @@ import { useEffect,useState,useMemo,useRef,Suspense,lazy} from 'react';
 import AssetImages from '../../assets/assetImages';
 import { useSelector,useDispatch } from 'react-redux';
 import uploadImage from '../../assets/images/14666.jpg';
+import uploadImageResized from '../../assets/images/resized_14666.jpg';
 import birthdayCard from '../../assets/images/rb_26773.png';
+import birthdayCardResize from '../../assets/images/resized_rb_26773.png';
 import nextGif from '../../assets/images/next-1989_256.gif';
 import pause from '../../assets/images/Pause.png';
+import pauseResize from '../../assets/images/resized_Pause.png';
 import play from '../../assets/images/Play.png';
+import playResize from '../../assets/images/resized_Play.png';
 import firstMusic from '../../assets/audio/englishMusic.m4a';
 import secondMusic from '../../assets/audio/henok abebe.m4a';
 import thirdMusic from '../../assets/audio/oromicMusic.m4a';
@@ -25,7 +29,9 @@ import {AnimateInIntroBack,AnimateOutIntro,HideIntroBack,AnimateBallon,AnimateCe
 import Alert from './alert';
 import Spinner from './Spinner';
 const  Intro = ({loaded,onLoad}) => {
-    const {AssetImage}=AssetImages();
+  const [fetchEasyImage,setFetchEasyImage]=useState(true);
+  const [fetchHardImage,setHardImage]=useState(false);
+    const {AssetImage,fetchedHard}=AssetImages(fetchEasyImage,fetchHardImage);
     const [imageRendered,setImageRendered]=useState(false);
     const [animateImageRotate,setAnimateRotateImage]=useState(false);
     const [animateRotateText,setAnimateRotateText]=useState(false);
@@ -74,6 +80,8 @@ const  Intro = ({loaded,onLoad}) => {
      const [renderPauseImage,setRenderPauseImage]=useState(false);
      const [renderPlayImage,setRenderPlayImage]=useState(false);
      const [renderUploadImage,setRenderUploadImage]=useState(false);
+     const [hideLowQualityBirthDayCard,setHideLowQualityBirthDayCard]=useState(false);
+     const [hideLowQualityUpload,setHideLowQualityUpload]=useState(false);
      const playImageRef=useRef(null);
      const pauseImageRef=useRef(null);
      const uploadImageRef=useRef(null);
@@ -89,7 +97,17 @@ const  Intro = ({loaded,onLoad}) => {
     useEffect(()=>{
         console.log(memoizedIntroData);
     },[memoizedIntroData]);
-     
+     useEffect(()=>{
+          
+           console.log("mounted first intro");
+            if(!fetchHardImage){
+              setFetchEasyImage(false);
+              setHardImage(true);
+             } 
+     },[]);
+     useEffect(()=>{
+          console.log("current asset image: ",AssetImage);
+     },[AssetImage]);
     useEffect(()=>{
             if(renderPauseImage && renderPlayImage && renderUploadImage){
               firstMusicRef.current.load();
@@ -146,35 +164,37 @@ const  Intro = ({loaded,onLoad}) => {
     //         }
     // },[showWaiting]);
     useEffect(()=>{
-       setTimeout(()=>{
-           dispatch(AnimateInIntroBack());
-       },500);
-       setTimeout(()=>{
-                 dispatch(AnimateInCentreImage());
-                 dispatch(AnimateInBallon());
-       },3500);
-       setTimeout(()=>{
-         dispatch(AnimateCenterImage());
-         dispatch(AnimateBallon());
+     
+       if(fetchHardImage){
+        setTimeout(()=>{
+          dispatch(AnimateInIntroBack());
+      },500);
+      setTimeout(()=>{
+                dispatch(AnimateInCentreImage());
+                dispatch(AnimateInBallon());
+      },3500);
+      setTimeout(()=>{
+        dispatch(AnimateCenterImage());
+        dispatch(AnimateBallon());
 },6500);
 setTimeout(()=>{
-  setAnimateRotateImage(true);
-  setAnimateRotateText(true);
+ setAnimateRotateImage(true);
+ setAnimateRotateText(true);
 },15500);
 setTimeout(()=>{
-   setAnimateInRotates(true);
-   setHideRotates(false);
+  setAnimateInRotates(true);
+  setHideRotates(false);
 },10500);
 setTimeout(()=>{
-        setAnimateDownRotates(true);
-        setAnimateInRotates(false);
-        setHideRotates(false);
+       setAnimateDownRotates(true);
+       setAnimateInRotates(false);
+       setHideRotates(false);
 },19500);
 setTimeout(()=>{
-     setAnimateCreate(true);
+    setAnimateCreate(true);
 },22000);
-       
-    },[]);
+       }
+    },[fetchedHard]);
 
     useEffect(()=>{
         if(AssetImage.length > 0){
@@ -415,7 +435,15 @@ setTimeout(()=>{
                         
                         </span>
                       {/* <img src={AssetImage[2]} className='w-16 h-16 rounded-full absolute animate-slideUpToCurrent' alt="" /> */}
-                      <img src={uploadImage} className={` ${animateUp || preview != null ? "hidden":""} ${isMobile ? "w-16 h-16":"w-40 h-40"}  rounded-full animate-slideUpToCurrent`} alt="" />
+                      <img
+                      onLoad={()=>{
+                        setHideLowQualityUpload(true);
+                      }}
+                      src={uploadImage} className={` ${hideLowQualityUpload ? "":"hidden"} ${animateUp || preview != null ? "hidden":""} ${isMobile ? "w-16 h-16":"w-40 h-40"}  rounded-full animate-slideUpToCurrent`} alt="" />
+                                            <img
+                     
+                      src={uploadImageResized} className={` ${hideLowQualityUpload ? "hidden":""} ${animateUp || preview != null ? "hidden":""} ${isMobile ? "w-16 h-16":"w-40 h-40"}  rounded-full animate-slideUpToCurrent`} alt="" />
+
                       <img src={preview} className={` ${preview == null ? "hidden":""} ${fadeOutNameAndImage ? "animate-fadeOut":"animate-slideUpToCurrent"} ${isMobile ? "w-40 h-40":"w-80 h-80"} rounded-full `} alt="" />
                 </div>
                 {/* <div className={` ${true ? "":"hidden"} min-h-40 max-h-64 bg-gray-300 overflow-y-scroll w-full flex justify-start items-start overflow-x-hidden text-break`} >
@@ -432,7 +460,12 @@ setTimeout(()=>{
                                 <div className={` ${fadeOutDescriptionSection ? "animate-fadeOut":""} ${isMobile ? "p-4 inset-y-10":"px-80 py-10 inset-y-10 inset-x-20 left-0 flex justify-center"}  absolute w-full ${isMobile ? "":""} z-40 flex flex-col gap-y-6 justify-center items-center overflow-x-hidden`} >
                                   <div className={` ${rotateBirthDayCard ? "animate-fadeIn":''} w-full h-40 flex flex-row justify-center items-center relative  `} >
                                         <span className={`text-center p-4 bg-black bg-opacity-50 ${rotateMessageBirthDay ? "animate-rotateCCW z-50":"opacity-0"} `} >Message Your Friend</span>
-                                        <img src={birthdayCard} className={` ${rotateBirthDayCard ? "animate-rotateCW":"opacity-0"} ${isMobile ? "w-full h-40 top-0 left-0":"w-60 h-60 top-0 z-50"}  absolute `} alt="" />
+                                        <img src={birthdayCardResize} className={` ${hideLowQualityBirthDayCard ? "true":""} ${rotateBirthDayCard ? "animate-rotateCW":"opacity-0"} ${isMobile ? "w-full h-40 top-0 left-0":"w-60 h-60 top-0 z-50"}  absolute `} alt="" />
+                                        <img
+                                        onLoad={()=>{
+                                          setHideLowQualityBirthDayCard(true);
+                                        }}
+                                        src={birthdayCard} className={` ${hideLowQualityBirthDayCard ? "":"hidden"} ${rotateBirthDayCard ? "animate-rotateCW":"opacity-0"} ${isMobile ? "w-full h-40 top-0 left-0":"w-60 h-60 top-0 z-50"}  absolute `} alt="" />
                                   </div>
                                   <div className={`w-full flex justify-start items-start h-full ${isMobile ? "p-4":'py-10 px-20 mt-10'} relative`} >
                                        <textarea
