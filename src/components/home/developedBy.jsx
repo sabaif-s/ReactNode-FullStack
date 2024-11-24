@@ -25,7 +25,7 @@ const  LoadingImages = () => {
         setTimeout(()=>{
             setAnimateOutAll(true);
         },6300);
-         console.log("loading mounted");
+         console.log("developed mounted");
     },[]);
     useEffect(()=>{
       if(animateInDeveloped){

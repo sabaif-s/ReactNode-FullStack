@@ -28,7 +28,7 @@ import backDesk from '../../assets/images/backDeskImage.jpg';
 import {AnimateInIntroBack,AnimateOutIntro,HideIntroBack,AnimateBallon,AnimateCenterImage,AnimateInBallon,AnimateInCentreImage} from '../../redux/intro/introAction'
 import Alert from './alert';
 import Spinner from './Spinner';
-const  Intro = ({loaded,onLoad}) => {
+const  Intro = ({loaded,onLoad,LoadingImages}) => {
   const [fetchEasyImage,setFetchEasyImage]=useState(true);
   const [fetchHardImage,setHardImage]=useState(false);
     const {AssetImage,fetchedHard}=AssetImages(fetchEasyImage,fetchHardImage);
@@ -94,9 +94,9 @@ const  Intro = ({loaded,onLoad}) => {
     const audioRefCollection=["",firstMusicRef,secondMusicRef,thirdMusicRef,fourthMusicRef];
     const dispatch=useDispatch();
 
-    useEffect(()=>{
-        console.log(memoizedIntroData);
-    },[memoizedIntroData]);
+    // useEffect(()=>{
+    //     console.log(memoizedIntroData);
+    // },[memoizedIntroData]);
      useEffect(()=>{
           
            console.log("mounted first intro");
@@ -105,6 +105,9 @@ const  Intro = ({loaded,onLoad}) => {
               setHardImage(true);
              } 
      },[]);
+     useEffect(()=>{
+         console.log("LOADING IMAGES: ",LoadingImages);
+     },[LoadingImages]);
      useEffect(()=>{
           console.log("current asset image: ",AssetImage);
      },[AssetImage]);
@@ -120,7 +123,7 @@ const  Intro = ({loaded,onLoad}) => {
       // Simulate loading time
       const timer = setTimeout(() => {
         if(loaded){
-
+            console.log("already loaded")
         }
         else{
           onLoad(); 
@@ -318,9 +321,6 @@ setTimeout(()=>{
     }
   };
   const backIntroLoaded=()=>{
-    if(!loaded){
-      onLoad();
-    }
     setShowIntro(true);
   }
   const createFormData=()=>{
@@ -349,9 +349,14 @@ setTimeout(()=>{
     return (
        <>
        <div className={` ${memoizedIntroData.hiddenIntroBack ? "":""}  ${isMobile ? "":'flex justify-center items-center'} ${showIntro ? "":""}  w-full h-screen  relative overflow-hidden`}>
-        <div className={`w-full h-full absolute object-cover z-0  `} >
-                  <img src={smallBack2} className='w-full h-full ' alt="" />
-        </div>
+       <div className={` ${fetchedHard ? "hidden":""} w-full h-full absolute object-cover z-20`}>
+  {LoadingImages ? (
+    <LoadingImages />
+  ) : (
+    <img src={smallBack2} className="w-full h-full" alt="" />
+  
+  )}
+</div>
         <img 
         onLoad={backIntroLoaded}
         src={AssetImage[2]} className={`w-full h-full absolute object-cover z-10 ${memoizedIntroData.animate_in_intro_back ? "":""} `} alt="" />

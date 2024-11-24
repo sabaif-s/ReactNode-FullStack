@@ -14,16 +14,24 @@ function App() {
    function loaded(){
     setIntroLoaded(true);
    }
+   useEffect(()=>{
+     console.log("App Started");
+     console.log("App Loaded");
+   },[]);
 
   return (
     <>
+    <div className={`${introLoaded ? "animate-fadeIn":""} w-full`} >
+
+   
     {introLoaded ? (
-      <Intro loaded={introLoaded} onLoad={loaded} />
+      <Intro loaded={introLoaded} onLoad={loaded} LoadingImages={LoadingImages} />
     ) : (
       <Suspense fallback={<LoadingImages />}>
         <Intro onLoad={loaded} loaded={introLoaded} />
       </Suspense>
     )}
+     </div>
   </>
   )
 }

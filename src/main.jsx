@@ -35,7 +35,7 @@ createRoot(document.getElementById('root')).render(
       <Route 
   path="/" 
   element={  
-    <Suspense fallback={<Spinner/>}>
+    <Suspense fallback={<LoadingImages/>}>
       <App />
     </Suspense>
   } 

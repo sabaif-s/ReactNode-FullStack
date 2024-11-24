@@ -34,6 +34,7 @@ export default function Spinner() {
         setBackMobile(mobileImage.default);
         setBackDesk(deskImage.default);
       };
+    
       loadImages();
     }, [isMobile]);
     function handleImageLoaded(){
@@ -41,12 +42,17 @@ export default function Spinner() {
         
         console.log("image loaded");
     }
+    useEffect(()=>{
+              console.log("spinner loaded");
+    },[]);
     
   return (
    
     <div className={`w-full h-screen flex justify-center items-center relative ${true ? "animate-fade-in":"hidden"} `}>
       <div className={` ${readyShow ? "hidden":""} w-full h-full absolute z-20`} >
-               <img src={smallBackMobile} className='w-full h-full' alt="" />
+               <img 
+              
+               src={smallBackMobile} className='w-full h-full absolute' alt="" />
       </div>
         {
                 isMobile && (
