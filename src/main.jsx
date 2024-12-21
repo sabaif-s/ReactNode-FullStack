@@ -7,12 +7,11 @@ import Spinner from './components/home/Spinner.jsx';
 import LoadingImages from './components/home/developedBy.jsx';
 import './index.css';
 const App =lazy(()=>import('./App.jsx'));
-// import App from './App.jsx';
+ 
  const Copy=lazy(()=> import('./components/home/copy.jsx'));
-// import Copy from './components/home/copy.jsx';
-// import Waiting from './components/home/waiting.jsx';
+ 
 const Waiting=lazy(()=> import('./components/home/waiting.jsx'));
-// import CardHome from './components/home/cardHome.jsx';
+ 
 const CardHome=lazy(()=> import('./components/home/cardHome.jsx'));
 const CardForShow=lazy(()=>
   import('./components/home/cardForShow.jsx')
@@ -20,11 +19,10 @@ const CardForShow=lazy(()=>
 const CreatedCard=lazy(()=>
   import('./components/home/createdCard.jsx')
 )
-// import CardForShow from './components/home/cardForShow.jsx';
-// import FlowersCard from './components/home/flowers.jsx';
+ 
 const FlowersCard=lazy(()=> import('./components/home/flowers.jsx'));
 const OpenBookAnimation=lazy(()=> import('./components/home/openBookAnimation.jsx'));
-// import OpenBookAnimation from './components/home/openBookAnimation.jsx';
+ 
 const basename = '/ReactNode-FullStack';
 
 createRoot(document.getElementById('root')).render(

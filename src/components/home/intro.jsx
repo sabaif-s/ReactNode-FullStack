@@ -17,6 +17,7 @@ import thirdMusic from '../../assets/audio/oromicMusic.m4a';
 import smallBack2 from '../../assets/images/smallBack2.jpg';
 import fourthMusic from '../../assets/audio/samiBerhane.m4a';
 import lowQualityDesc from '../../assets/images/smallBackDesc2.jpg';
+import LoadingImages from './developedBy';
 import FetchData from '../../hooks/fetchData';
 // const ScreenSize=lazy(()=> import('./screen'));
 import ScreenSize from './screen';
@@ -28,7 +29,7 @@ import backDesk from '../../assets/images/backDeskImage.jpg';
 import {AnimateInIntroBack,AnimateOutIntro,HideIntroBack,AnimateBallon,AnimateCenterImage,AnimateInBallon,AnimateInCentreImage} from '../../redux/intro/introAction'
 import Alert from './alert';
 import Spinner from './Spinner';
-const  Intro = ({loaded,onLoad,LoadingImages}) => {
+const  Intro = ({loaded,onLoad}) => {
   const [fetchEasyImage,setFetchEasyImage]=useState(true);
   const [fetchHardImage,setHardImage]=useState(false);
     const {AssetImage,fetchedHard}=AssetImages(fetchEasyImage,fetchHardImage);
@@ -85,6 +86,7 @@ const  Intro = ({loaded,onLoad,LoadingImages}) => {
      const playImageRef=useRef(null);
      const pauseImageRef=useRef(null);
      const uploadImageRef=useRef(null);
+     const [loadedFirst,setLoadedFirst]=useState(0);
 
     const fileRef=useRef(null);
 
@@ -322,6 +324,7 @@ setTimeout(()=>{
   };
   const backIntroLoaded=()=>{
     setShowIntro(true);
+    setLoadedFirst((prev) => prev + 1);
   }
   const createFormData=()=>{
   const uniqueID=createUniqueId(inputValue);
@@ -348,14 +351,9 @@ setTimeout(()=>{
   }
     return (
        <>
-       <div className={` ${memoizedIntroData.hiddenIntroBack ? "":""}  ${isMobile ? "":'flex justify-center items-center'} ${showIntro ? "":""}  w-full h-screen  relative overflow-hidden`}>
+       <div className={` ${memoizedIntroData.hiddenIntroBack ? "":""}  ${isMobile ? "":'flex justify-center items-center'} ${loadedFirst > 4 ? "animate-fadeIn":"opacity-0"}  w-full h-screen  relative overflow-hidden`}>
        <div className={` ${fetchedHard ? "hidden":""} w-full h-full absolute object-cover z-20`}>
-  {LoadingImages ? (
-    <LoadingImages />
-  ) : (
-    <img src={smallBack2} className="w-full h-full" alt="" />
-  
-  )}
+ 
 </div>
         <img 
         onLoad={backIntroLoaded}
@@ -365,11 +363,18 @@ setTimeout(()=>{
             !memoizedIntroData.hiddenIntroBack && (
                 <div className={` ${isMobile ? "":"flex justify-center items-center"} ${memoizedIntroData.animate_out_intro ? "animate-fadeOut relative w-full h-full z-20 bg-black bg-opacity-50":"absolute w-full h-full z-20"}`}>
                        <img
+                       onLoad={backIntroLoaded}
                        src={AssetImage[3]} className={` ${memoizedIntroData.hidden_center_image ? "hidden":""} ${memoizedIntroData.animate_in_centre_image ? "animate-fadeIn":""} ${memoizedIntroData.animate_center_image ? "animate-bounce":""} ${isMobile ? "w-1/2 h-1/2":"w-1/3 h-full object-cover rounded-full"} absolute ${isMobile ? "top-20 left-20":""} z-30`} alt="" />
-        <img src={AssetImage[0]} className={` ${memoizedIntroData.hidden_two_ballon ? "hidden":""} ${memoizedIntroData.animate_in_two_ballon ? "animate-fadeIn":""}  ${memoizedIntroData.animate_two_ballon ? "animate-skew":""} ${isMobile ? "w-40 h-40 top-40 left-4":"w-80 h-80 left-60"} absolute  z-20`} alt="" />
-        <img src={AssetImage[1]} className={` ${memoizedIntroData.hidden_two_ballon ? "hidden":""} ${memoizedIntroData.animate_in_two_ballon ? "animate-fadeIn":""} ${memoizedIntroData.animate_two_ballon ? "animate-skew":""} ${isMobile ? "w-40 h-40 top-40 right-10":"w-80 h-80 right-60"} absolute  z-20`} alt="" />
+        <img
+        onLoad={backIntroLoaded}
+        src={AssetImage[0]} className={` ${memoizedIntroData.hidden_two_ballon ? "hidden":""} ${memoizedIntroData.animate_in_two_ballon ? "animate-fadeIn":""}  ${memoizedIntroData.animate_two_ballon ? "animate-skew":""} ${isMobile ? "w-40 h-40 top-40 left-4":"w-80 h-80 left-60"} absolute  z-20`} alt="" />
+        <img
+        onLoad={backIntroLoaded}
+        src={AssetImage[1]} className={` ${memoizedIntroData.hidden_two_ballon ? "hidden":""} ${memoizedIntroData.animate_in_two_ballon ? "animate-fadeIn":""} ${memoizedIntroData.animate_two_ballon ? "animate-skew":""} ${isMobile ? "w-40 h-40 top-40 right-10":"w-80 h-80 right-60"} absolute  z-20`} alt="" />
         <div className={` ${hideRotates ? "hidden":""} ${animateCreate ? "hidden":""} ${animateDownRotates ? "animate-slideDown":""} ${animateInRotates ? "animate-fadeIn":""} absolute w-full h-full left-0 right-0 z-40 flex justify-center items-center`} >
-            <img src={AssetImage[7]} className={` ${animateImageRotate ? "animate-rotateCW":""} ${isMobile ? "w-full h-80 object-cover":"w-full h-full"} absolute z-10`} alt="" />
+            <img
+            onLoad={backIntroLoaded}
+            src={AssetImage[7]} className={` ${animateImageRotate ? "animate-rotateCW":""} ${isMobile ? "w-full h-80 object-cover":"w-full h-full"} absolute z-10`} alt="" />
             <div className={` ${animateRotateText ? "w-full h-80":"w-80 h-80"} relative text-center `}>
             <h1 className={` ${animateRotateText ? "animate-rotateDeg text-4xl":"transform rotate-45"} font-extrabold text-center text-purple-700 mt-10 absolute ${!isMobile ? "w-full h-full":""} ${isMobile && animateRotateText ? "w-full h-full":""} z-40 ${ animateRotateText ?  " left-0 top-0":"  top-10 left-20"} text-break`}>
             🎉 Craft the Perfect Birthday
@@ -788,6 +793,16 @@ setTimeout(()=>{
        
         
        </div>
+       
+       {loadedFirst < 4 && (
+        <div className='w-full h-screen absolute z-50 top-0'>
+        <LoadingImages key={2} reRender={true} />
+        </div>
+    
+  )  
+}
+       
+      
 
        </>
     );

@@ -25,10 +25,10 @@ function App() {
 
    
     {introLoaded ? (
-      <Intro loaded={introLoaded} onLoad={loaded} LoadingImages={LoadingImages} />
+      <Intro key={2} loaded={introLoaded} onLoad={loaded}  LoadingImages={LoadingImages} />
     ) : (
-      <Suspense fallback={<LoadingImages />}>
-        <Intro onLoad={loaded} loaded={introLoaded} />
+      <Suspense fallback={<LoadingImages reRender={false} key={1} />}>
+        <Intro key={1} onLoad={loaded} loaded={introLoaded} />
       </Suspense>
     )}
      </div>

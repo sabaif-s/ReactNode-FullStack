@@ -4,7 +4,7 @@ import ScreenSize from './screen';
 import gif from '../../assets/images/Pulse@1x-1.0s-200px-200px (1).gif';
 import sabk from '../../assets/images/sabk.jpeg';
 import backMobile from '../../assets/images/92990.jpg';
-const  LoadingImages = () => {
+const  LoadingImages = ({reRender}) => {
        
     const [animateInDeveloped,setAnimateInDevelopedIn]=useState(false);
     const [animateUpDeveloped,setAnimateUpDeveloped]=useState(false);
@@ -16,11 +16,24 @@ const  LoadingImages = () => {
     const [rendering,setRendering]=useState(false);
     
     useEffect(()=>{
-       setTimeout(()=>{
-         setAnimateInDevelopedIn(true);
-         setHideText(false);
-       },500);
+      if(!reRender){
+        setTimeout(()=>{
+          setAnimateInDevelopedIn(true);
+          setHideText(false);
+        },500);
+      }
+      
     },[]);
+    useEffect(()=>{
+       if(reRender){
+        setAnimateOutAll(false);
+        setAnimateInDevelopedIn(false);
+        setAnimateInName(false);
+        setAnimateUpDeveloped(false);
+        
+         
+       }
+    },[reRender]);
     useEffect(()=>{
         setTimeout(()=>{
             setAnimateOutAll(true);

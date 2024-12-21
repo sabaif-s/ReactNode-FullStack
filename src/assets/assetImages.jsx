@@ -24,14 +24,14 @@ const  AssetImages = (easy,hard) => {
     useEffect(()=>{
        
        const loadHighImages=async ()=>{
-           const image1=await import('./images/10252815.png');
-           const image2 =await import ('./images/170670446_10252808.png');
-           const image3 =await import('./images/22451856_SL-120920-38660-47.jpg');
-           const image4=await import('./images/360524525_11429953.png');
-           const image5=await import('./images/9083415.jpg');
-           const image6=await import('./images/rb_30921.png');
-           const image7=await import('./images/rb_30921.png');
-           const image8=await import('./images/rb_32582.png');
+           const image1=await import('./images/10252815_11zon-removebg-preview.png');
+           const image2 =await import ('./images/170670446_10252808_11zon-removebg-preview.png');
+           const image3 =await import('./images/22451856_SL-120920-38660-47_11zon (1).jpg');
+           const image4=await import('./images/360524525_11429953_11zon-removebg-preview.png');
+           const image5=await import('./images/9083415_11zon.jpg');
+           const image6=await import('./images/rb_30921_11zon.jpg');
+           const image7=await import('./images/rb_30921_11zon.jpg');
+           const image8=await import('./images/rb_32582_11zon_11zon-removebg-preview.png');
            const AssetImageArray=[image1.default,image2.default,image3.default,image4.default,image5.default,image6.default,image7.default,image8.default];
            setAssetImage(AssetImageArray);
            setFetchedHard(true);
